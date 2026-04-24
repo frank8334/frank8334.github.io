@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>星耀整合顧問 | 中小企業人事制度建立・勞資關係處理</title>
+  <meta name="description" content="專為50人以內中小企業提供人事制度建立、勞動法令諮詢、勞資爭議處理服務。初次諮詢免費30分鐘，賴力瑀顧問親力親為。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #1C3A5E;
+      --blue:   #2563EB;
+      --teal:   #0891B2;
+      --green:  #059669;
+      --light:  #F0F7FF;
+      --gray:   #F8FAFC;
+      --text:   #1E293B;
+      --muted:  #64748B;
+      --white:  #FFFFFF;
+      --gold:   #B45309;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      color: var(--text);
+      line-height: 1.7;
+      background: var(--white);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--navy);
+      padding: 0 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.25);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-logo img {
+      height: 40px;
+      width: 40px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+    .nav-logo span {
+      color: var(--white);
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: .04em;
+    }
+    .nav-cta {
+      background: var(--green);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      padding: 9px 20px;
+      font-size: .9rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .2s;
+    }
+    .nav-cta:hover { background: #047857; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #1e4d8c 60%, #0e7490 100%);
+      color: var(--white);
+      padding: 80px 5% 70px;
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      min-height: 520px;
+    }
+    .hero-text { flex: 1; max-width: 560px; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-size: .82rem;
+      letter-spacing: .06em;
+      margin-bottom: 22px;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 900;
+      line-height: 1.35;
+      margin-bottom: 18px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: #67E8F9;
+    }
+    .hero p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.85);
+      margin-bottom: 32px;
+      line-height: 1.8;
+    }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--green);
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: background .2s, transform .15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: #047857; transform: translateY(-1px); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: 8px;
+      border: 2px solid rgba(255,255,255,.5);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: border-color .2s, background .2s;
+      display: inline-block;
+    }
+    .btn-secondary:hover { border-color: var(--white); background: rgba(255,255,255,.08); }
+
+    .hero-photo {
+      flex-shrink: 0;
+      width: 320px;
+    }
+    .hero-photo img {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.4);
+      object-fit: cover;
+      object-position: top;
+      aspect-ratio: 3/4;
+    }
+    .hero-photo-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: 16px;
+      background: rgba(255,255,255,.1);
+      border: 2px dashed rgba(255,255,255,.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,.5);
+      font-size: .9rem;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--navy);
+      padding: 22px 5%;
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+    .stat-item {
+      text-align: center;
+      color: var(--white);
+    }
+    .stat-item strong {
+      display: block;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #67E8F9;
+      line-height: 1;
+    }
+    .stat-item span {
+      font-size: .82rem;
+      color: rgba(255,255,255,.7);
+      letter-spacing: .04em;
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 72px 5%; }
+    .section-label {
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: var(--teal);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 900;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .section-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 48px;
+    }
+
+    /* ── PAIN POINTS ── */
+    .pain { background: var(--gray); }
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .pain-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 28px 28px 24px;
+      border-left: 5px solid var(--teal);
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+    .pain-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+    .pain-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .pain-card p {
+      font-size: .9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .pain-card .pain-tag {
+      display: inline-block;
+      margin-top: 14px;
+      background: #FEF3C7;
+      color: var(--gold);
+      font-size: .75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── SERVICES ── */
+    .services { background: var(--white); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .service-card {
+      background: var(--light);
+      border-radius: 12px;
+      padding: 24px 22px;
+      border: 1px solid #DBEAFE;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .service-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(37,99,235,.12);
+    }
+    .service-num {
+      font-size: .75rem;
+      font-weight: 900;
+      color: var(--teal);
+      letter-spacing: .08em;
+      margin-bottom: 8px;
+    }
+    .service-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .service-card p {
+      font-size: .85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── ABOUT ── */
+    .about { background: var(--gray); }
+    .about-inner {
+      display: flex;
+      gap: 60px;
+      align-items: flex-start;
+    }
+    .about-photo {
+      flex-shrink: 0;
+      width: 260px;
+    }
+    .about-photo img {
+      width: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+      object-position: top;
+      aspect-ratio: 3/4;
+      box-shadow: 0 8px 32px rgba(0,0,0,.15);
+    }
+    .about-photo-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: 12px;
+      background: #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: .85rem;
+      text-align: center;
+    }
+    .about-content { flex: 1; }
+    .about-content h2 { font-size: 1.7rem; font-weight: 900; color: var(--navy); margin-bottom: 6px; }
+    .about-content .role { font-size: .95rem; color: var(--teal); font-weight: 700; margin-bottom: 18px; }
+    .about-content p { color: var(--muted); font-size: .95rem; margin-bottom: 24px; line-height: 1.8; }
+    .certs-title {
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--navy);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .certs-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .cert-badge {
+      background: var(--white);
+      border: 1px solid #BFDBFE;
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cert-badge::before {
+      content: "✓";
+      color: var(--green);
+      font-weight: 900;
+    }
+    .industries {
+      margin-top: 28px;
+      padding: 18px 20px;
+      background: var(--white);
+      border-radius: 10px;
+      border-left: 4px solid var(--green);
+    }
+    .industries strong {
+      display: block;
+      font-size: .82rem;
+      color: var(--muted);
+      letter-spacing: .06em;
+      margin-bottom: 8px;
+    }
+    .industry-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .industry-tag {
+      background: #DCFCE7;
+      color: #166534;
+      font-size: .82rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    /* ── COOPERATION ── */
+    .cooperation { background: var(--white); }
+    .coop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .coop-card {
+      border: 2px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 32px 28px;
+      transition: border-color .2s;
+      position: relative;
+    }
+    .coop-card:hover { border-color: var(--blue); }
+    .coop-card.featured {
+      border-color: var(--blue);
+      background: #EFF6FF;
+    }
+    .coop-popular {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--blue);
+      color: var(--white);
+      font-size: .72rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      letter-spacing: .06em;
+    }
+    .coop-icon { font-size: 2rem; margin-bottom: 14px; }
+    .coop-card h3 {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .coop-card .coop-sub {
+      font-size: .82rem;
+      color: var(--teal);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .coop-features { list-style: none; }
+    .coop-features li {
+      font-size: .9rem;
+      color: var(--muted);
+      padding: 5px 0;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .coop-features li::before {
+      content: "▸";
+      color: var(--teal);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ── CONTACT ── */
+    .contact {
+      background: linear-gradient(135deg, var(--navy) 0%, #1e4d8c 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 80px 5%;
+    }
+    .contact .section-label { color: #67E8F9; }
+    .contact .section-title { color: var(--white); margin-bottom: 8px; }
+    .contact .section-sub { color: rgba(255,255,255,.75); margin: 0 auto 48px; }
+    .contact-cards {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .contact-card {
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 12px;
+      padding: 22px 28px;
+      min-width: 180px;
+      text-decoration: none;
+      color: var(--white);
+      transition: background .2s, transform .2s;
+    }
+    .contact-card:hover {
+      background: rgba(255,255,255,.18);
+      transform: translateY(-2px);
+    }
+    .contact-card .cc-label {
+      font-size: .75rem;
+      color: rgba(255,255,255,.6);
+      letter-spacing: .08em;
+      margin-bottom: 4px;
+    }
+    .contact-card .cc-value {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+    .line-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #06C755;
+      color: var(--white);
+      padding: 16px 36px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: background .2s, transform .15s;
+      box-shadow: 0 4px 20px rgba(6,199,85,.4);
+    }
+    .line-cta:hover { background: #05a748; transform: translateY(-2px); }
+    .line-cta img { height: 26px; width: 26px; object-fit: contain; }
+    .free-note {
+      margin-top: 18px;
+      font-size: .85rem;
+      color: rgba(255,255,255,.6);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0F1E35;
+      color: rgba(255,255,255,.5);
+      text-align: center;
+      padding: 28px 5%;
+      font-size: .82rem;
+    }
+    footer a { color: rgba(255,255,255,.5); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column-reverse;
+        padding: 50px 5% 50px;
+        text-align: center;
+        gap: 32px;
+      }
+      .hero-btns { justify-content: center; }
+      .hero-photo { width: 200px; margin: 0 auto; }
+      .stats-bar { gap: 32px; }
+      .about-inner { flex-direction: column; }
+      .about-photo { width: 180px; }
+      nav .nav-logo span { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="assets/logo.png" alt="星耀整合顧問 Logo" />
+    <span>星耀整合顧問</span>
+  </div>
+  <a class="nav-cta" href="#contact">免費預約諮詢</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-badge">🏢 專為中小企業設計的人資服務</div>
+    <h1>
+      50人以內的公司，<br/>
+      也值得有<em>專業人事制度</em>
+    </h1>
+    <p>
+      沒有專職HR、老闆自己兼人資？<br/>
+      制度沒做好，一個勞資糾紛就可能損失慘重。<br/>
+      讓星耀整合顧問幫你把人事做對、做合法。
+    </p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#contact">預約免費 30 分鐘諮詢</a>
+      <a class="btn-secondary" href="#services">查看服務項目</a>
+    </div>
+  </div>
+  <div class="hero-photo">
+    <img src="assets/frank.jpg" alt="賴力瑀 Frank 顧問" onerror="this.parentElement.innerHTML='<div class=\'hero-photo-placeholder\'>顧問照片<br/>（請放入 assets/frank.jpg）</div>'" />
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <strong>10+</strong>
+    <span>服務企業數</span>
+  </div>
+  <div class="stat-item">
+    <strong>6</strong>
+    <span>專業證照</span>
+  </div>
+  <div class="stat-item">
+    <strong>8</strong>
+    <span>服務項目</span>
+  </div>
+  <div class="stat-item">
+    <strong>30 min</strong>
+    <span>初次免費諮詢</span>
+  </div>
+</div>
+
+<!-- PAIN POINTS -->
+<section class="pain" id="pain">
+  <div class="section-label">為什麼你需要人事顧問</div>
+  <div class="section-title">這些情況你遇過嗎？</div>
+  <div class="section-sub">中小企業最常因為這三件事，付出高額代價。</div>
+  <div class="pain-grid">
+    <div class="pain-card">
+      <div class="pain-icon">⚠️</div>
+      <h3>勞動檢查突然來，文件一片空白</h3>
+      <p>工作規則沒申報、出勤紀錄格式不對、加班費算錯——檢查當天才發現，已經來不及了。</p>
+      <span class="pain-tag">高罰款風險</span>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">🔥</div>
+      <h3>員工離職，突然說要申請勞資爭議</h3>
+      <p>勞動契約條款不完整、資遣程序走錯、沒有書面紀錄——對方一提申訴，你幾乎沒有籌碼。</p>
+      <span class="pain-tag">爭議處理困難</span>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">💸</div>
+      <h3>加班費、薪資結構一直有問題</h3>
+      <p>底薪＋獎金＋抽成的結構，加班費怎麼算？特休怎麼折？算錯的法律責任可能回溯好幾年。</p>
+      <span class="pain-tag">潛在薪資補發</span>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-label">服務項目</div>
+  <div class="section-title">8 大專業服務，從建立到應對全包</div>
+  <div class="section-sub">每項服務均可單獨委託，或納入月費顧問方案全年陪跑。</div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <h3>人事制度健檢</h3>
+      <p>現況盤點與合規評估，出具健檢報告書，提供改善優先順序建議。</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <h3>工作規則制定與申報</h3>
+      <p>依勞基法第70條草擬，含輪班／排班條款，協助送主管機關核備。</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <h3>勞動契約設計</h3>
+      <p>正職／兼職／承攬契約分版設計，含試用期、競業禁止條款書面化。</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <h3>工時與薪資制度建立</h3>
+      <p>工時合規設計，薪資結構（底薪／獎金／抽成），加班費計算 SOP。</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <h3>職安文件建置</h3>
+      <p>性騷擾申訴制度、職場霸凌防治（2026新法），安全作業規範建置。</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <h3>勞資爭議處理</h3>
+      <p>來函諮詢及回覆策略，資遣／解雇流程陪跑，勞資調解出席代理。</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">07</div>
+      <h3>勞動檢查應對</h3>
+      <p>事前自我稽核清單，文件補強建議，陪同檢查、協助回覆裁處。</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">08</div>
+      <h3>人才招募與留才制度</h3>
+      <p>結構式面談表設計，試用期考核制度，在職訓練與留才方案規劃。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-label">關於顧問</div>
+  <div class="about-inner">
+    <div class="about-photo">
+      <img src="assets/frank.jpg" alt="賴力瑀 Frank" onerror="this.parentElement.innerHTML='<div class=\'about-photo-placeholder\'>Frank 照片</div>'" />
+    </div>
+    <div class="about-content">
+      <h2>賴力瑀 Frank</h2>
+      <div class="role">星耀整合顧問 ｜ 人事制度顧問</div>
+      <p>
+        專注服務 50 人以內、沒有專職人資的中小企業。<br/>
+        不用養一個全職 HR，也能用顧問的方式，把人事制度做合法、做完整。<br/>
+        每個案子親力親為，從健檢到制度建立、從糾紛應對到勞動檢查，全程陪跑。
+      </p>
+      <div class="certs-title">專業認證</div>
+      <div class="certs-list">
+        <span class="cert-badge">勞資管理師</span>
+        <span class="cert-badge">就業服務乙級</span>
+        <span class="cert-badge">TTQS 訓練品質管理</span>
+        <span class="cert-badge">ICAP 職能分析規劃</span>
+        <span class="cert-badge">職業安全衛生管理乙級</span>
+        <span class="cert-badge">職業安全管理甲級</span>
+      </div>
+      <div class="industries">
+        <strong>主要服務產業</strong>
+        <div class="industry-tags">
+          <span class="industry-tag">服務業</span>
+          <span class="industry-tag">餐飲業</span>
+          <span class="industry-tag">工程行</span>
+          <span class="industry-tag">中小企業主</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COOPERATION -->
+<section class="cooperation" id="cooperation">
+  <div class="section-label">合作方式</div>
+  <div class="section-title">三種合作模式，按需求選擇</div>
+  <div class="section-sub">從單次急件到長期陪跑，選一個最符合你目前需求的方式。</div>
+  <div class="coop-grid">
+    <div class="coop-card">
+      <div class="coop-icon">🎯</div>
+      <h3>專案型合作</h3>
+      <div class="coop-sub">單一議題，一次性費用</div>
+      <ul class="coop-features">
+        <li>人事健檢報告</li>
+        <li>工作規則制定／申報</li>
+        <li>勞資爭議單案處理</li>
+        <li>資遣／解雇流程協助</li>
+      </ul>
+    </div>
+    <div class="coop-card featured">
+      <div class="coop-popular">最多人選擇</div>
+      <div class="coop-icon">📋</div>
+      <h3>月費顧問制</h3>
+      <div class="coop-sub">固定月費，全年無限諮詢</div>
+      <ul class="coop-features">
+        <li>全年無限次電話／LINE諮詢</li>
+        <li>制度定期複查更新</li>
+        <li>急件優先處理</li>
+        <li>法規異動即時通知</li>
+      </ul>
+    </div>
+    <div class="coop-card">
+      <div class="coop-icon">🚀</div>
+      <h3>開業套餐方案</h3>
+      <div class="coop-sub">一次到位，新創／展店適用</div>
+      <ul class="coop-features">
+        <li>勞動契約（正職＋兼職）</li>
+        <li>工作規則制定與申報</li>
+        <li>薪資制度建立</li>
+        <li>多店多據點優惠</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-label">聯絡我們</div>
+  <div class="section-title">初次諮詢免費 30 分鐘</div>
+  <div class="section-sub">說明你的狀況，我來評估最適合的解決方式。</div>
+  <div class="contact-cards">
+    <a class="contact-card" href="tel:0905732500">
+      <div class="cc-label">電話</div>
+      <div class="cc-value">0905-732-500</div>
+    </a>
+    <div class="contact-card">
+      <div class="cc-label">LINE ID</div>
+      <div class="cc-value">frank8334</div>
+    </div>
+    <a class="contact-card" href="mailto:cc83347014dd@gmail.com">
+      <div class="cc-label">Email</div>
+      <div class="cc-value">cc83347014dd@gmail.com</div>
+    </a>
+  </div>
+  <a class="line-cta" href="https://line.me/ti/p/frank8334" target="_blank" rel="noopener">
+    <img src="assets/line.png" alt="LINE" />
+    加 LINE 立即諮詢
+  </a>
+  <div class="free-note">📌 初次諮詢 30 分鐘免費，來電或 LINE 預約均可</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 星耀整合顧問 Starbright-Integrated Consultant｜賴力瑀 Frank｜
+    <a href="mailto:cc83347014dd@gmail.com">cc83347014dd@gmail.com</a>
+  </p>
+</footer>
+
+</body>
+</html>

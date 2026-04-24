@@ -798,5 +798,50 @@
   </p>
 </footer>
 
+<script>
+fetch('/site-data.json')
+  .then(r => r.json())
+  .then(d => {
+    // Hero
+    const h1 = document.querySelector('.hero h1');
+    if (h1 && d.hero_headline) {
+      const parts = d.hero_headline.split('專業人事制度');
+      h1.innerHTML = parts[0] + '<em>專業人事制度</em>' + (parts[1] || '');
+    }
+    const heroP = document.querySelector('.hero p');
+    if (heroP && d.hero_sub) heroP.innerHTML = d.hero_sub.replace(/\n/g, '<br/>');
+
+    // Services
+    if (d.services) {
+      const cards = document.querySelectorAll('.service-card');
+      d.services.forEach((s, i) => {
+        if (cards[i]) {
+          cards[i].querySelector('h3').textContent = s.title;
+          cards[i].querySelector('p').textContent = s.desc;
+        }
+      });
+    }
+
+    // About bio
+    const aboutP = document.querySelector('.about-content > p');
+    if (aboutP && d.about_bio) aboutP.innerHTML = d.about_bio.replace(/\n/g, '<br/>');
+
+    // Contact
+    if (d.phone) {
+      document.querySelectorAll('.cc-value').forEach(el => {
+        if (el.previousElementSibling?.textContent.trim() === '電話') el.textContent = d.phone;
+        if (el.previousElementSibling?.textContent.trim() === 'LINE ID') el.textContent = d.line_id;
+        if (el.previousElementSibling?.textContent.trim() === 'Email') el.textContent = d.email;
+      });
+      const tel = document.querySelector('a[href^="tel:"]');
+      if (tel) tel.href = 'tel:' + d.phone.replace(/-/g, '');
+      const mail = document.querySelector('a[href^="mailto:"]');
+      if (mail) { mail.href = 'mailto:' + d.email; }
+      const lineBtn = document.querySelector('.line-cta');
+      if (lineBtn) lineBtn.href = 'https://line.me/ti/p/~' + d.line_id;
+    }
+  })
+  .catch(() => {}); // 靜默失敗，保留原始內容
+</script>
 </body>
 </html>

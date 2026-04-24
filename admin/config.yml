@@ -1,0 +1,55 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: assets
+public_folder: /assets
+locale: zh_Hant
+
+collections:
+  - name: settings
+    label: 網站內容管理
+    files:
+
+      - name: hero
+        label: 首頁標語區
+        file: site-data.json
+        format: json
+        fields:
+          - label: 主標語（大標題）
+            name: hero_headline
+            widget: string
+            hint: "例：50人以內的公司，也值得有專業人事制度"
+          - label: 副標語說明文字
+            name: hero_sub
+            widget: text
+
+      - name: services
+        label: 服務項目
+        file: site-data.json
+        format: json
+        fields:
+          - label: 服務項目清單
+            name: services
+            widget: list
+            fields:
+              - {label: 服務名稱, name: title, widget: string}
+              - {label: 服務說明, name: desc, widget: text}
+
+      - name: about
+        label: 關於顧問
+        file: site-data.json
+        format: json
+        fields:
+          - label: 顧問簡介
+            name: about_bio
+            widget: text
+
+      - name: contact
+        label: 聯絡資訊
+        file: site-data.json
+        format: json
+        fields:
+          - {label: 電話, name: phone, widget: string}
+          - {label: LINE ID, name: line_id, widget: string}
+          - {label: Email, name: email, widget: string}

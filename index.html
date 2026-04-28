@@ -13,7 +13,71 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-W87BYE0KYL');
+    gtag('config', 'G-W87BYE0KYL', {
+      cookie_domain: 'starbright-integrated.com',
+      page_location: window.location.href,
+      page_title: document.title
+    });
+
+    // ── 轉換事件追蹤 ──
+    document.addEventListener('DOMContentLoaded', function() {
+
+      // 1. 右上角「免費預約諮詢」按鈕
+      var navCta = document.querySelector('nav .nav-cta');
+      if (navCta) navCta.addEventListener('click', function() {
+        gtag('event', 'cta_click', { location: 'navbar', label: '免費預約諮詢' });
+      });
+
+      // 2. Hero「預約免費30分鐘諮詢」按鈕
+      var heroBtn = document.querySelector('.hero .btn-primary');
+      if (heroBtn) heroBtn.addEventListener('click', function() {
+        gtag('event', 'cta_click', { location: 'hero', label: '預約免費30分鐘諮詢' });
+      });
+
+      // 3. LINE 大按鈕（聯絡區）
+      var lineBtn = document.querySelector('.line-cta');
+      if (lineBtn) lineBtn.addEventListener('click', function() {
+        gtag('event', 'line_click', { location: 'contact_section', label: '加LINE立即諮詢' });
+      });
+
+      // 4. 電話點擊
+      var phoneLink = document.querySelector('a[href^="tel:"]');
+      if (phoneLink) phoneLink.addEventListener('click', function() {
+        gtag('event', 'phone_click', { location: 'contact_section', label: '0905-732-500' });
+      });
+
+      // 5. Email 點擊
+      document.querySelectorAll('a[href^="mailto:"]').forEach(function(el) {
+        el.addEventListener('click', function() {
+          gtag('event', 'email_click', { location: 'contact_section', label: el.href });
+        });
+      });
+
+      // 6. 滾動到服務區（興趣訊號）
+      var servicesSeen = false;
+      var servicesEl = document.getElementById('services');
+      // 7. 滾動到聯絡區（高意圖訊號）
+      var contactSeen = false;
+      var contactEl = document.getElementById('contact');
+
+      window.addEventListener('scroll', function() {
+        if (!servicesSeen && servicesEl) {
+          var r = servicesEl.getBoundingClientRect();
+          if (r.top < window.innerHeight * 0.8) {
+            servicesSeen = true;
+            gtag('event', 'scroll_to_services', { label: '瀏覽服務項目' });
+          }
+        }
+        if (!contactSeen && contactEl) {
+          var r2 = contactEl.getBoundingClientRect();
+          if (r2.top < window.innerHeight * 0.8) {
+            contactSeen = true;
+            gtag('event', 'scroll_to_contact', { label: '抵達聯絡區塊' });
+          }
+        }
+      }, { passive: true });
+
+    });
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />

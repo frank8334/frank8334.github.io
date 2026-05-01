@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>星耀整合顧問 | 中小企業人事制度建立・勞資關係處理</title>
   <meta name="description" content="專為50人以內中小企業提供人事制度建立、勞動法令諮詢、勞資爭議處理服務。初次諮詢免費30分鐘，賴力瑀顧問親力親為。" />
-  <!-- Netlify Identity Widget -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <meta name="theme-color" content="#1C3A5E" />
+  <link rel="dns-prefetch" href="https://line.me" />
   <!-- Google Analytics GA4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-W87BYE0KYL"></script>
   <script>
@@ -79,10 +79,18 @@
 
     });
   </script>
+  <!-- Preconnect to speed up external resources -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <!-- Preload LCP image (hero photo) -->
+  <link rel="preload" as="image" href="assets/frank.webp" fetchpriority="high" />
+  <!-- Load fonts async to avoid render-blocking (removed wght@500 to reduce payload) -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet" /></noscript>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    picture { display: contents; }
 
     :root {
       --navy:   #1C3A5E;
@@ -100,7 +108,7 @@
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Noto Sans TC', sans-serif;
+      font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', 'Heiti TC', sans-serif;
       color: var(--text);
       line-height: 1.7;
       background: var(--white);
@@ -623,7 +631,10 @@
 <!-- NAV -->
 <nav>
   <div class="nav-logo">
-    <img src="assets/logo.png" alt="星耀整合顧問 Logo" />
+    <picture>
+      <source srcset="assets/logo.webp" type="image/webp" />
+      <img src="assets/logo.png" alt="星耀整合顧問 Logo" width="40" height="40" />
+    </picture>
     <span>星耀整合顧問</span>
   </div>
   <a class="nav-cta" href="#contact">免費預約諮詢</a>
@@ -648,7 +659,10 @@
     </div>
   </div>
   <div class="hero-photo">
-    <img src="assets/frank.jpg" alt="賴力瑀 Frank 顧問" onerror="this.parentElement.innerHTML='<div class=\'hero-photo-placeholder\'>顧問照片<br/>（請放入 assets/frank.jpg）</div>'" />
+    <picture>
+      <source srcset="assets/frank.webp" type="image/webp" />
+      <img src="assets/frank-opt.jpg" alt="賴力瑀 Frank 顧問" width="640" height="960" fetchpriority="high" onerror="this.closest('.hero-photo').innerHTML='<div class=\'hero-photo-placeholder\'>顧問照片</div>'" />
+    </picture>
   </div>
 </section>
 
@@ -753,7 +767,10 @@
   <div class="section-label">關於顧問</div>
   <div class="about-inner">
     <div class="about-photo">
-      <img src="assets/frank.jpg" alt="賴力瑀 Frank" onerror="this.parentElement.innerHTML='<div class=\'about-photo-placeholder\'>Frank 照片</div>'" />
+      <picture>
+        <source srcset="assets/frank.webp" type="image/webp" />
+        <img src="assets/frank-opt.jpg" alt="賴力瑀 Frank" width="640" height="960" loading="lazy" onerror="this.closest('.about-photo').innerHTML='<div class=\'about-photo-placeholder\'>Frank 照片</div>'" />
+      </picture>
     </div>
     <div class="about-content">
       <h2>賴力瑀 Frank</h2>
@@ -848,7 +865,10 @@
     </a>
   </div>
   <a class="line-cta" href="https://line.me/ti/p/~frank8334" target="_blank" rel="noopener">
-    <img src="assets/line.png" alt="LINE" />
+    <picture>
+      <source srcset="assets/line.webp" type="image/webp" />
+      <img src="assets/line.png" alt="LINE" width="26" height="26" />
+    </picture>
     加 LINE 立即諮詢
   </a>
   <div class="free-note">📌 初次諮詢 30 分鐘免費，來電或 LINE 預約均可</div>
@@ -863,6 +883,9 @@
     <a href="mailto:cc83347014dd@gmail.com">cc83347014dd@gmail.com</a>
   </p>
 </footer>
+
+<!-- Netlify Identity Widget – deferred to avoid render-blocking -->
+<script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
 <script>
 fetch('/site-data.json')

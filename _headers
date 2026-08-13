@@ -1,10 +1,3 @@
-# 法務頁面：允許被 iframe 嵌入，Meta 等平台驗證網址時會用預覽框載入
-/privacy/*
-  X-Frame-Options: SAMEORIGIN
-
-/terms/*
-  X-Frame-Options: SAMEORIGIN
-
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
@@ -15,3 +8,11 @@
   Cache-Control: public, max-age=0, must-revalidate
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
+
+# 法務頁面放最後：Netlify 的後定義規則會覆蓋前面的 /*
+# Meta 驗證網址時可能用預覽框載入，全站 DENY 會讓驗證失敗
+/privacy/*
+  X-Frame-Options: SAMEORIGIN
+
+/terms/*
+  X-Frame-Options: SAMEORIGIN

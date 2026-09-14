@@ -164,7 +164,13 @@ blockquote p{margin:6px 0}
 .cta p{color:rgba(255,255,255,.8);margin-bottom:20px;font-size:.93rem}
 .cta .btn{display:inline-block;background:var(--green);color:#fff;padding:13px 30px;border-radius:8px;text-decoration:none;font-weight:700}
 .cta .btn:hover{background:#047857}
+.cta .btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.cta .btn-line{display:inline-block;background:#06C755;color:#fff;padding:13px 26px;border-radius:8px;text-decoration:none;font-weight:700}
+.cta .btn-line:hover{background:#05a648}
+.cta .btn-alt{display:inline-block;background:transparent;color:#fff;padding:13px 26px;border-radius:8px;text-decoration:none;font-weight:700;border:1px solid rgba(255,255,255,.45)}
+.cta .btn-alt:hover{background:rgba(255,255,255,.12)}
 .cta .info{margin-top:16px;font-size:.85rem;color:rgba(255,255,255,.65)}
+.cta .info a{color:#fff;text-decoration:underline;white-space:nowrap}
 footer{background:#0F1E35;color:rgba(255,255,255,.5);text-align:center;padding:28px 5%;font-size:.82rem;margin-top:46px}
 footer a{color:rgba(255,255,255,.5);text-decoration:none}
 footer a:hover{color:#fff}
@@ -259,8 +265,11 @@ footer a:hover{color:#fff}
   <div class="cta">
     <h2>看完還是不確定自己公司的狀況？</h2>
     <p>初次諮詢 30 分鐘免費。說明你的狀況，我來評估最適合的處理方式。</p>
-    <a class="btn" href="/#contact">預約免費 30 分鐘諮詢</a>
-    <div class="info">星耀整合顧問｜賴力瑀 Frank｜0905-732-500｜LINE：@907qijtp<br>
+    <div class="btns">
+      <a class="btn-line" href="https://line.me/R/ti/p/%40907qijtp" target="_blank" rel="noopener">加 LINE 免費諮詢</a>
+      <a class="btn-alt" href="/#contact">預約 30 分鐘諮詢</a>
+    </div>
+    <div class="info">星耀整合顧問｜賴力瑀 Frank｜<a href="tel:0905732500">0905-732-500</a>｜LINE：<a href="https://line.me/R/ti/p/%40907qijtp" target="_blank" rel="noopener">@907qijtp</a><br>
     職業安全衛生管理師（甲級）・就業服務乙級技術士・勞資關係管理師</div>
   </div>
 </article>

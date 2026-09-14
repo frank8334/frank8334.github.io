@@ -340,6 +340,46 @@
     "定期契約",
     "不定期契約"
    ]
+  },
+  {
+   "slug": "summary-dismissal-just-cause",
+   "topic": "termination-dispute",
+   "title": "什麼情況可以開除又不用給資遣費？",
+   "excerpt": "勞基法第 12 條列了六款事由，但其中五款受三十日除斥期間限制。知道了卻放著不處理，過了三十日就只能改走資遣，資遣費與預告一項都少不了。",
+   "badge": "紅線警示",
+   "hot": true,
+   "date": "2026-09-14",
+   "link_terms": [
+    "不經預告終止",
+    "情節重大",
+    "曠工"
+   ]
+  },
+  {
+   "slug": "constructive-dismissal-section-14",
+   "topic": "termination-dispute",
+   "title": "員工自己辭職，公司還要給資遣費？",
+   "excerpt": "勞基法第 14 條讓勞工在雇主違法時得不經預告終止契約，而第 4 項準用第 17 條——資遣費照給。它不是突然出現的風險，是平常沒處理的問題到期了。",
+   "badge": "紅線警示",
+   "hot": false,
+   "date": "2026-09-14",
+   "link_terms": [
+    "第 14 條",
+    "被迫離職"
+   ]
+  },
+  {
+   "slug": "labor-dispute-mediation-process",
+   "topic": "termination-dispute",
+   "title": "收到勞資爭議調解通知，接下來會怎麼走？",
+   "excerpt": "三日內指派調解人、七日內開始調解、十日內作出方案。調解成立視為雙方契約；而調解期間資方不得終止契約或為其他不利於勞工之行為。",
+   "badge": "急件應對",
+   "hot": false,
+   "date": "2026-09-14",
+   "link_terms": [
+    "勞資爭議調解",
+    "調解"
+   ]
   }
  ]
 }

@@ -152,6 +152,8 @@ blockquote p{margin:6px 0}
 .src{margin-top:38px;padding:18px 20px;background:var(--gray);border-radius:10px;font-size:.86rem;color:var(--muted)}
 .src b{color:var(--navy)}
 .src ul{margin:8px 0 0 20px}
+.xlink{color:var(--blue);text-decoration:none;border-bottom:1px solid #BFDBFE;font-weight:600;padding-bottom:1px}
+.xlink:hover{border-bottom-color:var(--blue);background:var(--light)}
 .related{margin-top:38px}
 .related h2{font-size:1.08rem;font-weight:800;color:var(--navy);margin-bottom:14px}
 .related a{display:block;background:var(--light);border:1px solid #DBEAFE;border-radius:10px;padding:14px 16px;margin-bottom:10px;text-decoration:none;color:var(--navy);font-weight:600;font-size:.95rem}
@@ -230,8 +232,19 @@ footer a:hover{color:#fff}
 <p>上面講的都是「程序」。但程序做對，<strong>事由不對一樣會輸</strong>。</p>
 <p>勞基法第 11 條列舉雇主得預告終止契約的事由：歇業或轉讓、虧損或業務緊縮、不可抗力暫停工作一個月以上、業務性質變更有減少勞工之必要且無適當工作可供安置、勞工對於所擔任之工作確不能勝任。</p>
 <blockquote><p>「表現不好」不等於第 11 條第 5 款的「<strong>確不能勝任</strong>」。實務上要能舉證：</p><p>具體的工作要求、客觀的未達成事證、<strong>已給予改善機會與輔導的紀錄</strong>，以及無其他適當工作可安置。</p><p>這些都是<strong>事前</strong>要累積的，資遣當下才回頭找，通常來不及。</p></blockquote>
-<h2>六、一份資遣前的自我檢查</h2>
+<h2>六、有兩段期間，法律直接禁止資遣</h2>
+<p>前面談的是「怎麼做才合法」。這一節是<strong>做了就違法</strong>。</p>
+<p>勞動基準法第 13 條：「勞工在第五十條規定之停止工作期間或第五十九條規定之醫療期間，雇主不得終止契約。但雇主因天災、事變或其他不可抗力致事業不能繼續，經報主管機關核定者，不在此限。」</p>
+<div class="tablewrap"><table><thead><tr><th>期間</th><th>依據</th><th>白話</th></tr></thead><tbody>
+<tr><td><strong>產假停止工作期間</strong></td><td>第 50 條</td><td>分娩或流產依法停止工作的期間</td></tr>
+<tr><td><strong><a class="xlink" href="/blog/occupational-injury-employer-compensation-duties/" title="員工職災，老闆到底要付哪些錢？">職災</a>醫療期間</strong></td><td>第 59 條</td><td>因職業災害治療中、依第 59 條受領補償的期間</td></tr>
+</tbody></table></div>
+<blockquote class="warn"><p>但書的門檻很高：必須是<strong>天災、事變或其他不可抗力致事業不能繼續</strong>，而且<strong>要報經主管機關核定</strong>。「訂單掉了」「公司虧損」都不在此列——那些是第 11 條的資遣事由，<strong>不能拿來突破第 13 條</strong>。</p></blockquote>
+<p>在這兩段期間內逕行資遣，爭議不會只有一個。終止行為本身可能自始無效，勞工得請求<strong>確認僱傭關係存在</strong>並請求<strong>期間工資</strong>；若是職災醫療期間，第 59 條的補償義務<strong>同時繼續存在</strong>。三個請求疊在一起，遠比等到期間結束再依法辦理昂貴。</p>
+<p>⚠️ 實務上最常見的誤判，是把「職災員工一直沒回來上班」當成第 11 條第 5 款的「確不能勝任」。<strong>醫療期間內不行</strong>，這是第 13 條明文禁止的。</p>
+<h2>七、一份資遣前的自我檢查</h2>
 <ul>
+<li>[ ] 🔴 <strong>是否落在第 13 條禁止終止的期間</strong>（產假停止工作期間、職災醫療期間）</li>
 <li>[ ] 事由是否落在勞基法第 11 條所列款項，並有客觀事證</li>
 <li>[ ] 是否已有績效輔導與改善機會的書面紀錄</li>
 <li>[ ] 預告期間是否依年資正確計算（或決定給付預告工資）</li>
@@ -241,7 +254,7 @@ footer a:hover{color:#fff}
 <li>[ ] 離職證明書是否載明正確的離職事由</li>
 </ul>
 <div class="faq-wrap"><h2>常見問題</h2><details class="faq"><summary>資遣預告要提前幾天？</summary><div class="ans">依勞動基準法第 16 條第 1 項，依年資分三級：<strong>繼續工作 3 個月以上未滿 1 年者，10 日前預告</strong>；<strong>1 年以上未滿 3 年者，20 日前</strong>；<strong>3 年以上者，30 日前</strong>。未滿 3 個月者不須預告。雇主未依規定期間預告而終止契約者，應<strong>給付預告期間之工資</strong>。</div></details><details class="faq"><summary>「資遣預告」和「資遣通報」是同一件事嗎？</summary><div class="ans"><strong>不是，這是最常被搞混的一組。</strong> 預告是勞基法第 16 條對<strong>勞工</strong>的義務；資遣通報是就業服務法第 33 條對<strong>主管機關</strong>的義務。<strong>不論是否需要預告或已給付預告工資，雇主都必須於勞動契約終止日的 10 日前向主管機關辦理資遣通報。</strong></div></details><details class="faq"><summary>給了預告工資，是不是就不用提前通知了？</summary><div class="ans">對勞工而言，給付預告期間工資可以取代預告期間。但這<strong>不影響</strong>就業服務法的資遣通報義務——通報仍須於契約終止日 10 日前完成。兩者是不同法律、不同對象、不同目的。</div></details><details class="faq"><summary>員工在預告期間可以請假找工作嗎？</summary><div class="ans">可以。依勞動基準法第 16 條第 2 項，勞工於接到預告後，為另謀工作得於工作時間請假外出，<strong>每星期不得超過 2 日之工作時間，請假期間之工資照給</strong>。</div></details></div>
-<div class="src"><b>本文依據的一手法源</b><ul><li>《勞動基準法》第 16 條（預告期間依年資 10／20／30 日；謀職假每週 2 日工資照給；未依期間預告應給付預告期間工資）</li><li>《勞動基準法》第 17 條（資遣費，舊制）</li><li>《勞工退休金條例》第 12 條（資遣費，新制）</li><li>《就業服務法》第 33 條（資遣通報：應於勞動契約終止之 10 日前通報當地主管機關及公立就業服務機構）</li></ul><p style="margin-top:10px">法規以主管機關最新公告為準；個案適用性請洽主管機關或專業顧問確認。</p></div>
+<div class="src"><b>本文依據的一手法源</b><ul><li>《勞動基準法》第 16 條（預告期間依年資 10／20／30 日；謀職假每週 2 日工資照給；未依期間預告應給付預告期間工資）</li><li>《勞動基準法》第 17 條（資遣費，舊制）</li><li>《勞工退休金條例》第 12 條（資遣費，新制）</li><li>《勞動基準法》第 13 條（第 50 條停止工作期間、第 59 條醫療期間不得終止契約；例外須因天災事變或不可抗力致事業不能繼續且報經主管機關核定）</li><li>《就業服務法》第 33 條（資遣通報：應於勞動契約終止之 10 日前通報當地主管機關及公立就業服務機構）</li></ul><p style="margin-top:10px">法規以主管機關最新公告為準；個案適用性請洽主管機關或專業顧問確認。</p></div>
 <div class="related"><h2>同主題其他文章</h2><a href="/blog/probation-period-dismissal/">試用期可以隨時解僱嗎？主管機關與法院見解不一致，雇主該怎麼選<span>勞基法施行細則的試用期規定民國 86 年就刪除了。勞動部函釋說要依第 11、16、17 條辦理，法院多數見解說不用——那雇主該聽誰的？</span></a></div>
   <div class="cta">
     <h2>看完還是不確定自己公司的狀況？</h2>

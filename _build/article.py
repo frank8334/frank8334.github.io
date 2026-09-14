@@ -10,6 +10,8 @@
 """
 import io, os, re, sys, json, html
 
+import xlink
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 POSTS = os.path.join(ROOT, '_build', 'posts')
 DATA = os.path.join(ROOT, '_build', 'blog-data.json')
@@ -64,6 +66,8 @@ blockquote p{margin:6px 0}
 .src{margin-top:38px;padding:18px 20px;background:var(--gray);border-radius:10px;font-size:.86rem;color:var(--muted)}
 .src b{color:var(--navy)}
 .src ul{margin:8px 0 0 20px}
+.xlink{color:var(--blue);text-decoration:none;border-bottom:1px solid #BFDBFE;font-weight:600;padding-bottom:1px}
+.xlink:hover{border-bottom-color:var(--blue);background:var(--light)}
 .related{margin-top:38px}
 .related h2{font-size:1.08rem;font-weight:800;color:var(--navy);margin-bottom:14px}
 .related a{display:block;background:var(--light);border:1px solid #DBEAFE;border-radius:10px;padding:14px 16px;margin-bottom:10px;text-decoration:none;color:var(--navy);font-weight:600;font-size:.95rem}
@@ -194,6 +198,8 @@ def build(only=None):
             rel_html = '<div class="related"><h2>同主題其他文章</h2>' + ''.join(
                 '<a href="/blog/%s/">%s<span>%s</span></a>' % (r['slug'], e(r['title']), e(r['excerpt']))
                 for r in rel) + '</div>'
+        # 內文互鏈：別篇的代表詞在本篇首次出現時連過去
+        body_html, _xlinked = xlink.apply(md2html(body), slug, d['posts'])
         faq_html = ''
         if fm.get('faq'):
             faq_html = '<div class="faq-wrap"><h2>常見問題</h2>' + ''.join(
@@ -254,7 +260,7 @@ def build(only=None):
 <article>
   <h1>{e(fm['h1'])}</h1>
   <div class="lede">{inline(fm['lede'])}</div>
-{md2html(body)}
+{body_html}
 {faq_html}
 {src_html}
 {rel_html}

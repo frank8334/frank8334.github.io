@@ -380,6 +380,44 @@
     "勞資爭議調解",
     "調解"
    ]
+  },
+  {
+   "slug": "occupational-injury-8-hour-reporting",
+   "topic": "occupational-injury",
+   "title": "職災發生後八小時內，雇主要做什麼？",
+   "excerpt": "職安法第 37 條規定四類災害應於八小時內通報，其中「一人以上且需住院治療」最常被誤判為不用報。而在許可前不得移動或破壞現場。",
+   "badge": "急件應對",
+   "hot": true,
+   "date": "2026-09-14",
+   "link_terms": [
+    "八小時內通報",
+    "職災通報"
+   ]
+  },
+  {
+   "slug": "original-wage-calculation",
+   "topic": "occupational-injury",
+   "title": "職災的「原領工資」到底怎麼算？",
+   "excerpt": "按月計酬者以災害前最近一個月正常工作時間所得之工資除以三十。關鍵在「正常工作時間」——加班費不計入，而職業病另有取平均工資的但書。",
+   "badge": "計算實務",
+   "hot": false,
+   "date": "2026-09-14",
+   "link_terms": [
+    "原領工資"
+   ]
+  },
+  {
+   "slug": "employer-safety-duty-prevention",
+   "topic": "occupational-injury",
+   "title": "雇主的職災預防義務，範圍比你想的寬",
+   "excerpt": "職安法第 6 條第 2 項涵蓋重複性作業、過勞，以及執行職務因他人行為遭受身體或精神不法侵害。辦公室沒有機器，一樣適用。",
+   "badge": "法定義務",
+   "hot": false,
+   "date": "2026-09-14",
+   "link_terms": [
+    "預防義務",
+    "職場暴力"
+   ]
   }
  ]
 }

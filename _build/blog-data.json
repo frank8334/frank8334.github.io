@@ -195,6 +195,47 @@
     "職業災害",
     "職災"
    ]
+  },
+  {
+   "slug": "workplace-bullying-small-company-obligations",
+   "topic": "workplace-bullying",
+   "title": "10 到 29 人的公司，霸凌新法要做到什麼程度？",
+   "excerpt": "門檻是 10 人不是 30 人。10 人以上就必須設置申訴管道並在工作場所公開揭示；30 人以上才要訂定防治措施與指定專責單位。附最小合規清單。",
+   "badge": "規模分級",
+   "hot": true,
+   "date": "2026-09-14",
+   "link_terms": [
+    "申訴管道",
+    "公開揭示"
+   ]
+  },
+  {
+   "slug": "workplace-bullying-complaint-timeline",
+   "topic": "workplace-bullying",
+   "title": "收到職場霸凌申訴後，哪一天該做什麼？",
+   "excerpt": "10 個工作日決定受理、受理翌日起 7 個工作日登錄系統、調查 2 個月、決定 1 個月。一張表看完全部法定期限，含最常整條被漏掉的那一步。",
+   "badge": "急件應對",
+   "hot": false,
+   "date": "2026-09-14",
+   "link_terms": [
+    "登錄系統",
+    "受理申訴",
+    "申訴期限"
+   ]
+  },
+  {
+   "slug": "workplace-bullying-investigation-team-external-experts",
+   "topic": "workplace-bullying",
+   "title": "霸凌調查小組怎麼組？外部委員什麼時候一定要找",
+   "excerpt": "100 人以上初次調查才需外部委員達二分之一——但 30 人以上走到申復階段，同樣至少要有一位外部專業人士。含人數、性別比例與迴避規定。",
+   "badge": "制度建置",
+   "hot": false,
+   "date": "2026-09-14",
+   "link_terms": [
+    "調查小組",
+    "外部專業人士",
+    "外部委員"
+   ]
   }
  ]
 }

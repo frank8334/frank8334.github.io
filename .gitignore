@@ -1,0 +1,4 @@
+
+# Python 產生器的快取，不進版控
+__pycache__/
+*.pyc

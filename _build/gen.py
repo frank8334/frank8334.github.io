@@ -285,4 +285,7 @@ def build():
 
 
 if __name__ == '__main__':
+    # 文章頁要先產生，索引與聚合頁連過去才不會是死鏈
+    import article
+    article.build()
     build()

@@ -236,6 +236,46 @@
     "外部專業人士",
     "外部委員"
    ]
+  },
+  {
+   "slug": "labor-inspection-common-violations",
+   "topic": "labor-inspection",
+   "title": "勞檢最常開罰的四件事",
+   "excerpt": "延長工時一日不得逾 12 小時、一個月 46 小時；休息日加班費與平日是兩套費率；特休未休不得作廢。四項全落在 2 萬至 100 萬元的同一級距。",
+   "badge": "事前準備",
+   "hot": true,
+   "date": "2026-09-14",
+   "link_terms": [
+    "延長工時",
+    "加班費",
+    "特別休假"
+   ]
+  },
+  {
+   "slug": "labor-inspection-employee-complaint-protection",
+   "topic": "labor-inspection",
+   "title": "員工向勞工局檢舉，老闆可以資遣他嗎？",
+   "excerpt": "不行，後果有兩層：不利處分無效，再加 2 萬至 30 萬元罰鍰。而「查出是誰檢舉的」這個動作本身，會變成後續爭議中的動機證據。",
+   "badge": "紅線警示",
+   "hot": false,
+   "date": "2026-09-14",
+   "link_terms": [
+    "檢舉",
+    "申訴權"
+   ]
+  },
+  {
+   "slug": "labor-inspection-appeal-after-penalty",
+   "topic": "labor-inspection",
+   "title": "收到裁處書之後，還能救嗎？",
+   "excerpt": "訴願三十日，自處分達到之次日起算，以收受日為準。訴願書要「經由原行政處分機關」提起——直接寄給上級是最常見的誤解。",
+   "badge": "急件應對",
+   "hot": false,
+   "date": "2026-09-14",
+   "link_terms": [
+    "訴願",
+    "裁處書"
+   ]
   }
  ]
 }

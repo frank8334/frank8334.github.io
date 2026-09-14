@@ -1,0 +1,82 @@
+{
+  "topics": [
+    {
+      "slug": "workplace-bullying",
+      "name": "職場霸凌防治",
+      "tagline": "2026/7/1 已施行，10 人以上就有法定義務",
+      "desc": "職安法職場霸凌防治專章已於 2026 年 7 月 1 日施行。這一區整理雇主依規模該做什麼、收到申訴後的法定時限，以及被申訴人是老闆本人時的處理方式。",
+      "icon": "⚖️"
+    },
+    {
+      "slug": "labor-inspection",
+      "name": "勞動檢查與裁罰應對",
+      "tagline": "收到公文之後，還有得救",
+      "desc": "勞檢通知、陳述意見、裁處書——每一關都有法定時限與可以主張的事項。錯過就只能認罰。",
+      "icon": "📋"
+    },
+    {
+      "slug": "occupational-injury",
+      "name": "職業災害與補償",
+      "tagline": "算錯抵充，公司就多付一次",
+      "desc": "通勤職災認定、公傷病假、原領工資補償與保險抵充。這一區的重點是把「該給的給足、不該重複給的不要多給」算清楚。",
+      "icon": "🚑"
+    },
+    {
+      "slug": "hr-system",
+      "name": "人事制度建置",
+      "tagline": "制度不是做給勞檢看的，是做給爭議時用的",
+      "desc": "工作規則、勞動契約、薪資與工時制度、勞資會議。爭議發生時能不能站得住，取決於這些文件在事前有沒有做對。",
+      "icon": "🗂️"
+    },
+    {
+      "slug": "termination-dispute",
+      "name": "解僱、資遣與勞資爭議",
+      "tagline": "流程走錯，理由對也會輸",
+      "desc": "資遣預告與通報、試用期解僱、調解出席。勞資爭議多數不是輸在事實，是輸在程序。",
+      "icon": "🤝"
+    },
+    {
+      "slug": "funding",
+      "name": "創業貸款與政府補助",
+      "tagline": "先確認能不能貸，再談要不要拚補助",
+      "desc": "青創、微型鳳凰與政府補助計畫的資格門檻與計畫書要點。補助不用還但競爭激烈；貸款只要條件到位，通過機會高得多。",
+      "icon": "💰"
+    }
+  ],
+  "posts": [
+    {
+      "slug": "workplace-bullying-prevention-employer-guide-2026",
+      "topic": "workplace-bullying",
+      "title": "2026 職場霸凌新法上路：雇主必懂的 4 大義務、調查 SOP 與自檢指南",
+      "excerpt": "職安法職場霸凌專章已於 2026 年 7 月 1 日施行。10 人／30 人／100 人的責任分級、未設申訴管道的罰則、以及收到申訴後每一關的法定時限。",
+      "badge": "2026 新法・已施行",
+      "hot": true,
+      "date": "2026-09-14"
+    },
+    {
+      "slug": "workplace-bullying-boss-accused-employer-defense",
+      "topic": "workplace-bullying",
+      "title": "職場霸凌被申訴人就是「老闆本人」怎麼辦？",
+      "excerpt": "被申訴的是負責人時，內部調查失去公正性，勞工可逕向地方主管機關申訴——這條多數企業的制度裡根本沒寫。",
+      "badge": "2026 新法・已施行",
+      "hot": true,
+      "date": "2026-09-14"
+    },
+    {
+      "slug": "labor-inspection-statement-of-opinion-guide",
+      "topic": "labor-inspection",
+      "title": "收到勞動部「陳述意見通知書」，該怎麼回？",
+      "excerpt": "陳述意見不是走形式，是裁罰前你唯一能講話的機會。該寫什麼、不該寫什麼，回覆前先看這篇。",
+      "badge": "急件應對",
+      "date": "2026-09-14"
+    },
+    {
+      "slug": "off-duty-accident-occupational-injury-guide",
+      "topic": "occupational-injury",
+      "title": "下班繞去買東西摔傷，也算通勤職災嗎？",
+      "excerpt": "「日常生活所必需」的繞道到哪裡為止？認定標準、公傷病假，以及最常被漏算的保險抵充等待期。",
+      "badge": "職災認定",
+      "date": "2026-09-14"
+    }
+  ]
+}

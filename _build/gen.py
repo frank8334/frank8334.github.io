@@ -6,7 +6,9 @@
 
 用法：python _build/gen.py
 """
-import io, json, os, html
+import io, json, os, sys, html
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, '_build', 'blog-data.json')
@@ -275,6 +277,11 @@ def build():
     for m in made:
         print('  ' + os.path.relpath(m, ROOT).replace('\\', '/'))
     print('共 %d 個頁面（%d 主題 / %d 文章）' % (len(made), len(topics), len(posts)))
+
+    # sitemap 與 robots 一併重建，確保與文章清單同步
+    import sitemap
+    sitemap.build(d)
+
 
 
 if __name__ == '__main__':

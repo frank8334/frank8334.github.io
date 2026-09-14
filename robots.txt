@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# CMS 後台，不應被索引
+Disallow: /admin/
+
+Sitemap: https://starbright-integrated.com/sitemap.xml

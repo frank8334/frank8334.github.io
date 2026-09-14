@@ -77,6 +77,57 @@
       "excerpt": "「日常生活所必需」的繞道到哪裡為止？認定標準、公傷病假，以及最常被漏算的保險抵充等待期。",
       "badge": "職災認定",
       "date": "2026-09-14"
+    },
+    {
+      "slug": "work-rules-30-employees-filing",
+      "topic": "hr-system",
+      "title": "工作規則什麼時候要報備？30 人怎麼算、沒報會怎樣",
+      "excerpt": "訂立、報請核備、公開揭示，三個動作缺一不可。躺在雲端硬碟裡的員工手冊，法律上等於沒有工作規則。",
+      "badge": "人事制度",
+      "date": "2026-09-14"
+    },
+    {
+      "slug": "labor-management-meeting-requirement",
+      "topic": "hr-system",
+      "title": "勞資會議一定要開嗎？沒開的真正風險不是罰錢",
+      "excerpt": "沒開本身沒有罰則，但變形工時、加班上限、七休一調整全都要「經勞資會議同意」——開關沒開，後面接的東西都不能用。",
+      "badge": "人事制度",
+      "hot": true,
+      "date": "2026-09-14"
+    },
+    {
+      "slug": "layoff-notice-and-reporting",
+      "topic": "termination-dispute",
+      "title": "資遣員工的法定流程：預告、通報、資遣費，一個都不能少",
+      "excerpt": "「預告」和「資遣通報」是兩件事，最常被整個漏掉的是後者——它不是給員工的，是給政府的，而且給了預告工資也免不掉。",
+      "badge": "資遣流程",
+      "hot": true,
+      "date": "2026-09-14"
+    },
+    {
+      "slug": "probation-period-dismissal",
+      "topic": "termination-dispute",
+      "title": "試用期可以隨時解僱嗎？主管機關與法院見解不一致，雇主該怎麼選",
+      "excerpt": "勞基法施行細則的試用期規定民國 86 年就刪除了。勞動部函釋說要依第 11、16、17 條辦理，法院多數見解說不用——那雇主該聽誰的？",
+      "badge": "常見誤解",
+      "date": "2026-09-14"
+    },
+    {
+      "slug": "startup-loan-youth-vs-phoenix",
+      "topic": "funding",
+      "title": "青創貸款 vs 微型鳳凰：哪一套適合你？先看員工人數就知道",
+      "excerpt": "不是哪個好貸，是你通常只有一套能選。鳳凰限員工未滿 5 人、設立未超過 5 年；青創沒有員工數上限但限 18–45 歲。",
+      "badge": "資格對照",
+      "hot": true,
+      "date": "2026-09-14"
+    },
+    {
+      "slug": "startup-loan-application-checklist",
+      "topic": "funding",
+      "title": "創業貸款送件前的自我檢查：五件先備好，計畫書才有意義",
+      "excerpt": "卡住送件的多半不是計畫書寫得不好，是資格或文件在動筆前就已經不符。課程時數尤其常在最後一週才發現來不及。",
+      "badge": "送件準備",
+      "date": "2026-09-14"
     }
   ]
 }

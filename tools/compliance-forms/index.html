@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企業合規勞資表單一鍵生成器 ｜ 星耀整合顧問</title>
+    <meta name="description" content="星耀整合顧問專用企業勞資表單套印系統，支援加班申請單、特休遞延協議書、勞資會議紀錄即時填表、一鍵匯出 Word 與 A4 列印。">
+    <style>
+        :root {
+            --bg-body: #0F172A;
+            --bg-panel: #1E293B;
+            --bg-card: #334155;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --gold-accent: #F59E0B;
+            --gold-light: #FCD34D;
+            --blue-accent: #38BDF8;
+            --border-line: rgba(255, 255, 255, 0.1);
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-stack);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            min-height: 100vh;
+            line-height: 1.5;
+            padding-bottom: 60px;
+        }
+
+        /* 頂部導航 */
+        header {
+            background: #0F172A;
+            border-bottom: 1px solid var(--border-line);
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .brand-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-badge {
+            background: linear-gradient(135deg, var(--gold-accent), #D97706);
+            color: #0F172A;
+            font-weight: 900;
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-header {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-line);
+            color: #FFFFFF;
+            padding: 8px 16px;
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-header:hover {
+            border-color: var(--gold-accent);
+            color: var(--gold-accent);
+        }
+
+        .btn-gold-primary {
+            background: linear-gradient(135deg, var(--gold-accent), #D97706);
+            color: #0F172A;
+            border: none;
+        }
+
+        .btn-gold-primary:hover {
+            opacity: 0.95;
+            color: #0F172A;
+        }
+
+        /* 主工作區 */
+        .workspace {
+            max-width: 1400px;
+            margin: 28px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 28px;
+        }
+
+        @media (max-width: 960px) {
+            .workspace {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 左側填表設定面板 */
+        .input-panel {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-line);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            height: fit-content;
+        }
+
+        .panel-heading {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--gold-accent);
+            border-bottom: 1px solid var(--border-line);
+            padding-bottom: 10px;
+        }
+
+        .field-box {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .field-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .text-input {
+            background: #0B0F19;
+            border: 1px solid var(--border-line);
+            color: #FFFFFF;
+            padding: 10px 14px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .text-input:focus {
+            border-color: var(--gold-accent);
+        }
+
+        /* 表單切換頁籤 */
+        .tab-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .tab-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-line);
+            color: #FFFFFF;
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            text-align: left;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tab-btn:hover {
+            background: #475569;
+        }
+
+        .tab-btn.active {
+            border-color: var(--gold-accent);
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--gold-light);
+        }
+
+        /* 右側預覽與列印畫布 */
+        .preview-wrapper {
+            background: #525659;
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            overflow-x: auto;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        /* A4 紙張模擬 */
+        .a4-page {
+            background: #FFFFFF;
+            color: #1E293B;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            padding: 25mm 20mm;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .doc-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 900;
+            margin-bottom: 6px;
+            color: #0F172A;
+            letter-spacing: 1px;
+        }
+
+        .doc-subtitle {
+            text-align: center;
+            font-size: 13px;
+            color: #64748B;
+            margin-bottom: 24px;
+        }
+
+        .doc-meta-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .doc-meta-table td {
+            padding: 6px 10px;
+            border: 1px solid #CBD5E1;
+            font-size: 13px;
+        }
+
+        .doc-meta-table .label-cell {
+            background: #F8FAFC;
+            font-weight: 700;
+            width: 18%;
+            color: #334155;
+        }
+
+        .doc-content-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+        }
+
+        .doc-content-table th, .doc-content-table td {
+            border: 1px solid #CBD5E1;
+            padding: 10px;
+            font-size: 13px;
+        }
+
+        .doc-content-table th {
+            background: #F1F5F9;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .clause-box {
+            background: #F8FAFC;
+            border: 1px dashed #CBD5E1;
+            padding: 14px;
+            margin-bottom: 24px;
+            font-size: 12px;
+            color: #475569;
+            line-height: 1.7;
+        }
+
+        .clause-box strong {
+            color: #0F172A;
+        }
+
+        .sign-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 36px;
+        }
+
+        .sign-box {
+            border-top: 1px solid #0F172A;
+            padding-top: 8px;
+            font-size: 13px;
+        }
+
+        /* 提示通知 */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--gold-accent);
+            color: #0F172A;
+            font-weight: 800;
+            padding: 12px 24px;
+            border-radius: 50px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            opacity: 0;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* 列印純白樣式 */
+        @media print {
+            body {
+                background: #FFFFFF !important;
+                padding: 0 !important;
+            }
+            header, .input-panel, .toast {
+                display: none !important;
+            }
+            .workspace {
+                display: block !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                max-width: 100% !important;
+            }
+            .preview-wrapper {
+                background: #FFFFFF !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+            }
+            .a4-page {
+                box-shadow: none !important;
+                padding: 15mm !important;
+                margin: 0 !important;
+                width: 100% !important;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-inner">
+            <div class="brand-title">
+                <span class="brand-badge">STARSHINE HR</span>
+                <span>星耀整合顧問 ｜ 企業合規勞資表單一鍵生成器</span>
+            </div>
+            <div class="header-actions">
+                <button class="btn-header" onclick="window.print()">
+                    🖨️ A4 純白列印 / 存為 PDF
+                </button>
+                <button class="btn-header btn-gold-primary" onclick="exportWord()">
+                    📥 一鍵匯出 Word 檔 (.doc)
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="workspace">
+
+        <!-- 左側填表控制台 -->
+        <div class="input-panel">
+            <div class="panel-heading">⚙️ 1. 企業與基本資料填寫</div>
+
+            <div class="field-box">
+                <label class="field-label">公司行號全名：</label>
+                <input type="text" class="text-input" id="inpCompany" value="星耀整合顧問有限公司" oninput="updatePreview()">
+            </div>
+
+            <div class="field-box">
+                <label class="field-label">統一編號 (8碼)：</label>
+                <input type="text" class="text-input" id="inpTaxId" value="83345678" oninput="updatePreview()">
+            </div>
+
+            <div class="field-box">
+                <label class="field-label">事業單位負責人：</label>
+                <input type="text" class="text-input" id="inpBoss" value="張總經理" oninput="updatePreview()">
+            </div>
+
+            <div class="field-box">
+                <label class="field-label">年度 / 基準日期：</label>
+                <input type="text" class="text-input" id="inpDate" value="2026 年 09 月 15 日" oninput="updatePreview()">
+            </div>
+
+            <div class="panel-heading" style="margin-top: 10px;">📄 2. 選擇切換表單</div>
+
+            <div class="tab-group">
+                <button class="tab-btn active" onclick="switchForm('overtime', this)">
+                    <span>📝 A. 加班事前申請暨確認單</span>
+                    <span style="font-size: 11px; opacity: 0.8;">防離職追討</span>
+                </button>
+                <button class="tab-btn" onclick="switchForm('annual_leave', this)">
+                    <span>🏖️ B. 特休未休結算暨遞延協議書</span>
+                    <span style="font-size: 11px; opacity: 0.8;">防勞檢罰單</span>
+                </button>
+                <button class="tab-btn" onclick="switchForm('meeting', this)">
+                    <span>🤝 C. 勞資會議開會通知與紀錄</span>
+                    <span style="font-size: 11px; opacity: 0.8;">變形工時合法化</span>
+                </button>
+            </div>
+
+            <div style="background: rgba(245, 158, 11, 0.08); border-left: 3px solid var(--gold-accent); padding: 12px; font-size: 12px; color: var(--gold-light); line-height: 1.6; border-radius: 4px; margin-top: 10px;">
+                💡 <strong>星耀法務防線提示：</strong><br>
+                左側輸入之抬頭、統編與日期將即時套入右側標準公版。匯出 Word 或直接列印即可供勞資雙方用印簽收，備置勞檢備查。
+            </div>
+        </div>
+
+        <!-- 右側：A4 紙張即時預覽畫布 -->
+        <div class="preview-wrapper">
+            <div class="a4-page" id="printableDoc">
+                <!-- 內容由 JavaScript 動態渲染 -->
+            </div>
+        </div>
+
+    </div>
+
+    <div class="toast" id="toast">✅ 已成功匯出 Word 檔！</div>
+
+    <script>
+        let currentForm = 'overtime';
+
+        function switchForm(formKey, el) {
+            currentForm = formKey;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            updatePreview();
+        }
+
+        function updatePreview() {
+            const comp = document.getElementById("inpCompany").value || "（公司名稱）";
+            const tax = document.getElementById("inpTaxId").value || "（統一編號）";
+            const boss = document.getElementById("inpBoss").value || "（負責人）";
+            const dateStr = document.getElementById("inpDate").value || "（日期）";
+            const doc = document.getElementById("printableDoc");
+
+            if (currentForm === 'overtime') {
+                doc.innerHTML = `
+                    <div class="doc-title">${comp}</div>
+                    <div class="doc-subtitle">員工延長工作時間（加班）事前申請暨按月出勤確認單</div>
+
+                    <table class="doc-meta-table">
+                        <tr>
+                            <td class="label-cell">事業單位</td>
+                            <td>${comp}</td>
+                            <td class="label-cell">統一編號</td>
+                            <td>${tax}</td>
+                        </tr>
+                        <tr>
+                            <td class="label-cell">申請人姓名</td>
+                            <td>王小明</td>
+                            <td class="label-cell">所屬部門/職稱</td>
+                            <td>業務部 / 專員</td>
+                        </tr>
+                        <tr>
+                            <td class="label-cell">申請核定日期</td>
+                            <td>${dateStr}</td>
+                            <td class="label-cell">核決主管</td>
+                            <td>${boss}</td>
+                        </tr>
+                    </table>
+
+                    <table class="doc-content-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 16%;">加班日期</th>
+                                <th style="width: 22%;">預定加班起訖時間</th>
+                                <th style="width: 12%;">預估時數</th>
+                                <th style="width: 32%;">具體事由與專案名稱</th>
+                                <th style="width: 18%;">補償方式確認</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center;">2026/09/16</td>
+                                <td style="text-align: center;">18:00 ～ 20:00</td>
+                                <td style="text-align: center;">2.0 小時</td>
+                                <td>第四季客戶合約趕工裝訂審核</td>
+                                <td style="text-align: center;">☑ 加班費<br>☐ 依法換補休</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">2026/09/18</td>
+                                <td style="text-align: center;">18:00 ～ 21:00</td>
+                                <td style="text-align: center;">3.0 小時</td>
+                                <td>系統資料庫備份轉移與異常排除</td>
+                                <td style="text-align: center;">☑ 加班費<br>☐ 依法換補休</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">—</td>
+                                <td style="text-align: center;">—</td>
+                                <td style="text-align: center;">—</td>
+                                <td>（空白備查列）</td>
+                                <td style="text-align: center;">☐ 加班費<br>☐ 換補休</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="clause-box">
+                        <strong>⚖️ 勞基法第 24/32 條及管理規章合規防禦約定：</strong><br>
+                        1. <strong>事前申請制</strong>：本公司依工作規則訂有加班嚴格審核制度。勞工因業務需要延長工時，必須於「加班前」經權責主管簽核同意；未經事前指派或申請核准之逗留，非屬提供勞務工時。<br>
+                        2. <strong>自主意願</strong>：勞工如選擇換取補休，係基於勞工本人自由意願個別提出，補休期限屆滿或契約終止未休完之時數，雇主依法發給加班費折算工資。<br>
+                        3. <strong>當月確認</strong>：立約勞工確認上列表載之時數、事由與當月薪資明細表中之加班費核算均查核無誤，特此簽署確認。
+                    </div>
+
+                    <div class="sign-grid">
+                        <div class="sign-box">
+                            申請勞工簽名（親簽）：_____________________<br>
+                            確認日期：${dateStr}
+                        </div>
+                        <div class="sign-box">
+                            權責主管／負責人用印：_____________________<br>
+                            核准日期：${dateStr}
+                        </div>
+                    </div>
+                `;
+            } else if (currentForm === 'annual_leave') {
+                doc.innerHTML = `
+                    <div class="doc-title">${comp}</div>
+                    <div class="doc-subtitle">年度特別休假未休工資結算明細暨書面遞延協議書</div>
+
+                    <table class="doc-meta-table">
+                        <tr>
+                            <td class="label-cell">立協議單位</td>
+                            <td>${comp}（以下簡稱資方）</td>
+                            <td class="label-cell">統一編號</td>
+                            <td>${tax}</td>
+                        </tr>
+                        <tr>
+                            <td class="label-cell">立協議勞工</td>
+                            <td>林小華（以下簡稱勞方）</td>
+                            <td class="label-cell">身分證字號</td>
+                            <td>A123456789</td>
+                        </tr>
+                        <tr>
+                            <td class="label-cell">到職日期</td>
+                            <td>2024 年 03 月 01 日</td>
+                            <td class="label-cell">計算年度</td>
+                            <td>2025/2026 週年結算</td>
+                        </tr>
+                    </table>
+
+                    <table class="doc-content-table">
+                        <thead>
+                            <tr>
+                                <th>年度應給特休總天數</th>
+                                <th>年度已休天數</th>
+                                <th>結算未休剩餘天數</th>
+                                <th>平日一日工資基準</th>
+                                <th>結算處理約定</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center; font-weight: 700;">10 天</td>
+                                <td style="text-align: center;">4 天</td>
+                                <td style="text-align: center; font-weight: 700; color: #C0392B;">6 天</td>
+                                <td style="text-align: center;">NT$ 1,500 / 日</td>
+                                <td style="text-align: center;">
+                                    ☐ 現金全額發放（NT$ 9,000）<br>
+                                    ☑ <strong>雙方合意書面遞延至次年度</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="clause-box">
+                        <strong>⚖️ 勞動基準法第 38 條第 4 項特別休假合意遞延合規條款：</strong><br>
+                        1. <strong>書面協商合意</strong>：勞雇雙方依勞動基準法第 38 條第 4 項但書規定，經充分協商後，雙方合意將當年度未休完之特休天數共計 <strong>6 天</strong>，遞延至次一年度行使。<br>
+                        2. <strong>次年終結強制折現</strong>：遞延之天數於次一年度終結（或契約因故終止）仍未休畢者，資方無條件按「原特休年度終結時應發給工資之基準（即每自然日 NT$ 1,500）」全額計發工資，絕不再度遞延或沒收歸零。<br>
+                        3. <strong>請假優先順序</strong>：次一年度勞方請休特別休假時，依勞基法施行細則第 24-1 條規定，優先扣除遞延之舊特休天數。
+                    </div>
+
+                    <div class="sign-grid">
+                        <div class="sign-box">
+                            立協議勞工（親簽）：_____________________<br>
+                            簽署日期：${dateStr}
+                        </div>
+                        <div class="sign-box">
+                            資方事業單位及負責人（用印）：_____________________<br>
+                            簽署日期：${dateStr}
+                        </div>
+                    </div>
+                `;
+            } else if (currentForm === 'meeting') {
+                doc.innerHTML = `
+                    <div class="doc-title">${comp}</div>
+                    <div class="doc-subtitle">第 一 屆 第 三 次 勞 資 會 議 開 會 紀 錄</div>
+
+                    <table class="doc-meta-table">
+                        <tr>
+                            <td class="label-cell">開會時間</td>
+                            <td>${dateStr} 下午 14 時 00 分</td>
+                            <td class="label-cell">開會地點</td>
+                            <td>公司大會議室</td>
+                        </tr>
+                        <tr>
+                            <td class="label-cell">應出席代表</td>
+                            <td>資方代表 3 人、勞方代表 3 人</td>
+                            <td class="label-cell">實際出席代表</td>
+                            <td>資方代表 3 人、勞方代表 3 人（全體出席）</td>
+                        </tr>
+                        <tr>
+                            <td class="label-cell">會議主席</td>
+                            <td>${boss}</td>
+                            <td class="label-cell">會議紀錄人員</td>
+                            <td>人資專員 陳美玲</td>
+                        </tr>
+                    </table>
+
+                    <table class="doc-content-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%;">議案案號</th>
+                                <th style="width: 35%;">案由</th>
+                                <th style="width: 50%;">決議結果（依法定法定決議門檻）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center; font-weight: 700;">第一案</td>
+                                <td>為因應業務旺季與突發訂單需求，提請同意實施<strong>「延長工作時間（加班）」</strong>案。</td>
+                                <td>經出席代表全體一致決議：<strong>同意</strong>依勞基法第 32 條第 1 項規定，全體同仁於業務需要時，經個別勞工同意得配合延長工時。</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center; font-weight: 700;">第二案</td>
+                                <td>為符合行業服務特性，提請同意實施<strong>「四週彈性變形工時」</strong>案。</td>
+                                <td>經全體勞資代表詳細討論並一致通過：<strong>同意</strong>依勞基法第 30-1 條規定實施四週變形工時，妥善安排排班與例休。</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center; font-weight: 700;">第三案</td>
+                                <td>提請同意<strong>「女性勞工午後十時至翌晨六時夜間工作」</strong>安全設施案。</td>
+                                <td>經出席代表全體通過：<strong>同意</strong>女性員工於夜間工作，公司應落實提供交通接送協助及完善安全防護設施。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="clause-box">
+                        <strong>📌 法規備查說明：</strong><br>
+                        本紀錄依《勞資會議實施辦法》第 21 條規定辦理，會議決議事項應於會後七日內向全體勞工公開揭示，並按規定送請地方主管機關備查，作為公司合法實施加班與變形工時之法定要件。
+                    </div>
+
+                    <div class="sign-grid">
+                        <div class="sign-box">
+                            勞方代表首席代表簽名：_____________________<br>
+                            資方代表首席代表簽名：_____________________
+                        </div>
+                        <div class="sign-box">
+                            事業單位印鑑章：_____________________<br>
+                            負責人印鑑章：_____________________
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // 匯出 Word 檔 (.doc)
+        function exportWord() {
+            const contentHtml = document.getElementById("printableDoc").innerHTML;
+            const comp = document.getElementById("inpCompany").value || "企業";
+            const filename = `${comp}_合規勞資表單_${currentForm}.doc`;
+
+            const fullHtml = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="utf-8">
+                    <title>${filename}</title>
+                    <style>
+                        body { font-family: 'PMingLiU', 'Microsoft JhengHei', serif; font-size: 11pt; line-height: 1.5; }
+                        .doc-title { text-align: center; font-size: 18pt; font-weight: bold; margin-bottom: 4pt; }
+                        .doc-subtitle { text-align: center; font-size: 12pt; color: #555555; margin-bottom: 16pt; }
+                        table { width: 100%; border-collapse: collapse; margin-bottom: 12pt; }
+                        td, th { border: 1pt solid #000000; padding: 6pt; font-size: 10.5pt; }
+                        .label-cell { background-color: #F0F0F0; font-weight: bold; width: 20%; }
+                        .clause-box { border: 1pt dashed #666666; padding: 8pt; background-color: #FAFAFA; font-size: 9.5pt; margin-bottom: 16pt; }
+                        .sign-grid { margin-top: 24pt; }
+                    </style>
+                </head>
+                <body>
+                    ${contentHtml}
+                </body>
+                </html>
+            `;
+
+            const blob = new Blob(['\ufeff' + fullHtml], { type: 'application/msword' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showToast("✅ 已成功匯出 Word 檔案！");
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById("toast");
+            toast.textContent = msg;
+            toast.classList.add("show");
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 3000);
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            updatePreview();
+        });
+    </script>
+</body>
+</html>

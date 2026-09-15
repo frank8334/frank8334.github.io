@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企業勞動法規風險與潛在罰鍰線上互動快篩器 ｜ 星耀整合顧問</title>
+    <meta name="description" content="3分鐘線上快速診斷企業勞資法規合規狀態，即時評估勞檢風險等級與潛在罰鍰金額，提供企業主合規防禦建議。">
+    <style>
+        :root {
+            --bg-primary: #0B132B;
+            --bg-card: #1C2541;
+            --bg-card-hover: #222E54;
+            --text-primary: #F8F9FA;
+            --text-secondary: #CBD5E1;
+            --text-muted: #8D99AE;
+            --gold-accent: #F39C12;
+            --gold-light: #F1C40F;
+            --gold-glow: rgba(243, 156, 18, 0.25);
+            --danger-red: #E74C3C;
+            --warning-amber: #E67E22;
+            --safe-green: #2ECC71;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --radius-sm: 6px;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        /* 頂部導航與標頭 */
+        header {
+            background: linear-gradient(180deg, rgba(11, 19, 43, 0.95) 0%, rgba(11, 19, 43, 0.8) 100%);
+            border-bottom: 1px solid var(--border-color);
+            padding: 24px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+
+        .header-container {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .brand-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-badge {
+            background: linear-gradient(135deg, var(--gold-accent), var(--gold-light));
+            color: #0B132B;
+            font-weight: 900;
+            font-size: 14px;
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            letter-spacing: 1px;
+        }
+
+        .brand-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #FFFFFF;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-sub {
+            font-size: 13px;
+            color: var(--gold-accent);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 1080px;
+            margin: 32px auto;
+            padding: 0 20px;
+        }
+
+        /* 英雄區簡介 */
+        .hero-section {
+            text-align: center;
+            padding: 24px 20px 40px;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(243, 156, 18, 0.15);
+            border: 1px solid var(--gold-accent);
+            color: var(--gold-accent);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .hero-title {
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 16px;
+            color: #FFFFFF;
+        }
+
+        .hero-title span {
+            background: linear-gradient(90deg, #F39C12, #F1C40F);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        /* 儀表板摘要卡（即時浮動監控） */
+        .dashboard-sticky-bar {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 32px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            display: grid;
+            grid-template-columns: 1.2fr 1.5fr 1fr;
+            gap: 20px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-sticky-bar {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .risk-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 22px;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: var(--radius-md);
+            width: fit-content;
+        }
+
+        .risk-safe {
+            background: rgba(46, 204, 113, 0.15);
+            color: var(--safe-green);
+            border: 1px solid var(--safe-green);
+        }
+
+        .risk-warning {
+            background: rgba(230, 126, 34, 0.15);
+            color: var(--warning-amber);
+            border: 1px solid var(--warning-amber);
+        }
+
+        .risk-danger {
+            background: rgba(231, 76, 60, 0.15);
+            color: var(--danger-red);
+            border: 1px solid var(--danger-red);
+            animation: pulse-danger 2s infinite;
+        }
+
+        @keyframes pulse-danger {
+            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+        }
+
+        .fine-range-box {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--gold-accent);
+            letter-spacing: 0.5px;
+        }
+
+        .fine-subtext {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .cta-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 18px;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-accent), var(--gold-light));
+            color: #0B132B;
+            box-shadow: 0 4px 15px var(--gold-glow);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-secondary);
+        }
+
+        /* 題目卡片區 */
+        .questions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .question-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .question-card.flagged {
+            border-color: var(--danger-red);
+            background: rgba(28, 37, 65, 0.95);
+            box-shadow: 0 4px 20px rgba(231, 76, 60, 0.15);
+        }
+
+        .question-card.flagged::before {
+            content: "⚠️ 違法高危項";
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--danger-red);
+            color: #FFFFFF;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 2px 10px;
+            border-radius: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .q-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .q-number {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--gold-accent);
+            font-weight: 900;
+            font-size: 16px;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .q-body {
+            flex-grow: 1;
+        }
+
+        .q-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 6px;
+        }
+
+        .q-law-badge {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gold-light);
+            background: rgba(243, 156, 18, 0.12);
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+
+        .q-penalty-tag {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #FF7675;
+            background: rgba(255, 118, 117, 0.12);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .q-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 6px;
+        }
+
+        /* 單選選項群組 */
+        .options-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .options-group {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            background: rgba(11, 19, 43, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .option-label:hover {
+            border-color: rgba(255, 255, 255, 0.25);
+            background: rgba(11, 19, 43, 0.9);
+        }
+
+        .option-input {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--text-muted);
+            border-radius: 50%;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .option-input:checked {
+            border-color: var(--gold-accent);
+        }
+
+        .option-input:checked::after {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--gold-accent);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .option-label.selected-danger {
+            border-color: var(--danger-red);
+            background: rgba(231, 76, 60, 0.1);
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+
+        .option-label.selected-danger .option-input {
+            border-color: var(--danger-red);
+        }
+
+        .option-label.selected-danger .option-input:checked::after {
+            background: var(--danger-red);
+        }
+
+        .option-label.selected-safe {
+            border-color: var(--safe-green);
+            background: rgba(46, 204, 113, 0.1);
+            color: #FFFFFF;
+        }
+
+        .option-label.selected-safe .option-input {
+            border-color: var(--safe-green);
+        }
+
+        .option-label.selected-safe .option-input:checked::after {
+            background: var(--safe-green);
+        }
+
+        /* 診斷報告結算區塊 */
+        .result-report-card {
+            background: linear-gradient(145deg, #1C2541 0%, #151D36 100%);
+            border: 2px solid var(--gold-accent);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+            margin-top: 40px;
+        }
+
+        .report-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .report-header h2 {
+            font-size: 26px;
+            color: #FFFFFF;
+            margin-bottom: 8px;
+        }
+
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .report-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .report-box {
+            background: rgba(11, 19, 43, 0.7);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .report-box-num {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--gold-accent);
+            margin: 8px 0;
+        }
+
+        /* 違規明細列表 */
+        .violation-list {
+            margin: 24px 0;
+            background: rgba(11, 19, 43, 0.5);
+            border-radius: var(--radius-md);
+            padding: 20px;
+        }
+
+        .violation-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 14px;
+        }
+
+        .violation-item:last-child {
+            border-bottom: none;
+        }
+
+        .violation-icon {
+            color: var(--danger-red);
+            font-weight: bold;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        /* 底部 CTA 區 */
+        .cta-final-box {
+            background: rgba(243, 156, 18, 0.08);
+            border: 1px dashed var(--gold-accent);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .cta-final-box h3 {
+            color: var(--gold-light);
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .cta-final-box p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* 彈窗提示通知 */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #2ECC71;
+            color: #0B132B;
+            font-weight: 700;
+            padding: 12px 24px;
+            border-radius: 50px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* 列印專用純淨樣式 */
+        @media print {
+            body {
+                background: #FFFFFF !important;
+                color: #000000 !important;
+                padding-bottom: 0 !important;
+            }
+
+            header, .hero-tag, .cta-btn-group, .cta-final-box, .header-actions, .toast {
+                display: none !important;
+            }
+
+            .container {
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .hero-title {
+                color: #000000 !important;
+                font-size: 22px !important;
+            }
+
+            .hero-title span {
+                -webkit-text-fill-color: #000000 !important;
+                color: #000000 !important;
+            }
+
+            .dashboard-sticky-bar, .question-card, .result-report-card, .report-box, .violation-list {
+                background: #FFFFFF !important;
+                color: #000000 !important;
+                border: 1px solid #CCCCCC !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+            }
+
+            .q-title, .report-header h2 {
+                color: #000000 !important;
+            }
+
+            .option-label {
+                background: #F8F9FA !important;
+                color: #333333 !important;
+                border: 1px solid #DDDDDD !important;
+            }
+
+            .fine-range-box, .report-box-num {
+                color: #C0392B !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頂部導航 -->
+    <header>
+        <div class="header-container">
+            <div class="brand-box">
+                <span class="brand-badge">STARSHINE</span>
+                <div>
+                    <div class="brand-title">星耀整合顧問</div>
+                    <div class="brand-sub">企業勞動法規風險快篩系統 v2.0</div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-outline" onclick="window.print()">
+                    🖨️ A4 列印 / 存為 PDF
+                </button>
+                <a href="#report-section" class="btn btn-gold">
+                    📊 查看診斷結果
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- 英雄區 -->
+        <section class="hero-section">
+            <span class="hero-tag">🛡️ 2026 勞動檢查與職場法規防禦專用</span>
+            <h1 class="hero-title">企業勞動法規風險 <span>線上互動快篩器</span></h1>
+            <p class="hero-desc">
+                精選台灣勞動檢查 10 大最高頻開罰地雷（出勤分鐘制、平日與假日加班費、特休未休工資、2026 職場霸凌與不法侵害新制）。
+                勾選您的公司現況，3 分鐘動態評估潛在受罰風險與最高裁罰金額。
+            </p>
+        </section>
+
+        <!-- 即時浮動總控儀表板 -->
+        <div class="dashboard-sticky-bar">
+            <div class="stat-item">
+                <span class="stat-label">勞檢風險評級</span>
+                <div id="riskLevelBadge" class="risk-badge risk-safe">
+                    <span>🟢 合規優良</span>
+                </div>
+            </div>
+
+            <div class="stat-item">
+                <span class="stat-label">預估若遭勞檢・潛在裁罰金額總計</span>
+                <div class="fine-range-box" id="fineAmountDisplay">NT$ 0</div>
+                <div class="fine-subtext" id="fineSubtext">（依勞基法與職安法標準計算，目前尚無違法風險項）</div>
+            </div>
+
+            <div class="cta-btn-group">
+                <button class="btn btn-gold" onclick="copyReportSummary()">
+                    📋 一鍵複製診斷摘要
+                </button>
+                <a href="https://line.me/R/ti/p/%40907qijtp" target="_blank" class="btn btn-outline">
+                    💬 加 LINE 預約合規健檢
+                </a>
+            </div>
+        </div>
+
+        <!-- 題目問卷區 -->
+        <form id="quizForm">
+            <div class="questions-grid" id="questionsContainer">
+                <!-- 由 JavaScript 自動動態注入 10 題高危項目 -->
+            </div>
+        </form>
+
+        <!-- 總體診斷報告區 -->
+        <section class="result-report-card" id="report-section">
+            <div class="report-header">
+                <h2>📊 企業勞資法規防禦評估報告</h2>
+                <p style="color: var(--text-secondary); font-size: 14px;">
+                    本診斷結果係依勞動基準法、職業安全衛生法及性別平等工作法最新裁罰基準產出
+                </p>
+            </div>
+
+            <div class="report-grid">
+                <div class="report-box">
+                    <span class="stat-label">已檢測項目</span>
+                    <div class="report-box-num">10 / 10</div>
+                    <span style="font-size: 13px; color: var(--text-muted);">核心勞檢高危指標</span>
+                </div>
+
+                <div class="report-box">
+                    <span class="stat-label">觸犯違規項目</span>
+                    <div class="report-box-num" id="violationCountDisplay" style="color: var(--danger-red);">0 項</div>
+                    <span style="font-size: 13px; color: var(--text-muted);">需立即改善防禦</span>
+                </div>
+
+                <div class="report-box">
+                    <span class="stat-label">潛在最高累計罰鍰</span>
+                    <div class="report-box-num" id="reportFineDisplay" style="color: var(--gold-accent);">NT$ 0</div>
+                    <span style="font-size: 13px; color: var(--text-muted);">不含按次連續開罰與公布負責人姓名</span>
+                </div>
+            </div>
+
+            <!-- 違規明細 -->
+            <div class="violation-list" id="violationListContainer">
+                <div style="text-align: center; color: var(--safe-green); padding: 12px;">
+                    🎉 恭喜！目前勾選之管理制度均符合勞動法規標準，請繼續保持。
+                </div>
+            </div>
+
+            <!-- 轉化 CTA -->
+            <div class="cta-final-box">
+                <h3>需要專業人資勞資顧問協助建立合規防護網？</h3>
+                <p>
+                    星耀整合顧問提供「企業勞資合規全面健檢（NT$ 3,980 起）」與「常年勞資顧問合約維護」，
+                    協助您建置出勤核算系統、特休協議書、加班申請單與 2026 職場霸凌防制機制，杜絕勞檢罰單與員工爭議。
+                </p>
+                <div class="cta-buttons">
+                    <button class="btn btn-gold" onclick="copyReportSummary()">
+                        📋 一鍵複製檢測結果
+                    </button>
+                    <a href="https://line.me/R/ti/p/%40907qijtp" target="_blank" class="btn btn-outline" style="background: #00B900; color: #FFFFFF; border-color: #00B900;">
+                        🟢 點此開啟 LINE 傳送諮詢
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- 複製成功提示 -->
+    <div class="toast" id="toast">✅ 診斷摘要已複製到剪貼簿，可直接貼至 LINE 諮詢！</div>
+
+    <script>
+        // 10 大核心題目資料庫
+        const QUIZ_DATA = [
+            {
+                id: "q1",
+                num: "01",
+                title: "出勤紀錄分鐘制與打卡管理",
+                law: "勞基法第 30 條第 5 項",
+                penaltyText: "處罰 9 萬 ～ 45 萬元",
+                minFine: 90000,
+                maxFine: 450000,
+                desc: "雇主應置備勞工出勤紀錄，並記載至「分鐘」為止。若僅打卡上午/下午、紙本簽到無分鐘、或由主管統一填寫皆屬違法。",
+                optSafe: "已全面採用指紋/臉部/線上打卡，精準記載進出公司至「分鐘」，且依法保存至少 5 年",
+                optDanger: "僅有紙本簽到（無記錄到幾點幾分）、或部分員工未打卡、僅記錄打卡上午/下午"
+            },
+            {
+                id: "q2",
+                num: "02",
+                title: "平日延長工時（加班費）核算",
+                law: "勞基法第 24 條",
+                penaltyText: "處罰 2 萬 ～ 100 萬元",
+                minFine: 20000,
+                maxFine: 1000000,
+                desc: "加班前2小時按平日工資×1.34、後2小時×1.67發給。不得強制以補休代替，若換補休需經勞工個別同意且未休畢仍須折發工資。",
+                optSafe: "依 1.34/1.67 計算發給加班費；若換補休皆由員工自主提出並經書面確認，未休完依規定折現",
+                optDanger: "公司規定加班「一律只能換補休」、或補休逾期自動歸零、或未按法定加乘比例計算"
+            },
+            {
+                id: "q3",
+                num: "03",
+                title: "例假與休息日（一例一休）",
+                law: "勞基法第 36 條",
+                penaltyText: "處罰 2 萬 ～ 100 萬元",
+                minFine: 20000,
+                maxFine: 1000000,
+                desc: "勞工每7日中至少應有2日休息，其中1日為例假（除天災事變外絕對不得出勤），1日為休息日。原則上不得連續出勤超過6天。",
+                optSafe: "嚴格排班每週休 2 天，未經工會/勞資會議同意絕不跨週排班，無連續出勤逾 6 天之情形",
+                optDanger: "旺季時曾讓員工連續出勤 7 天以上未給例假、或例假與休息日排班混亂無書面紀錄"
+            },
+            {
+                id: "q4",
+                num: "04",
+                title: "年度特休未休工資結算",
+                law: "勞基法第 38 條",
+                penaltyText: "處罰 2 萬 ～ 100 萬元",
+                minFine: 20000,
+                maxFine: 1000000,
+                desc: "特別休假期日由勞工排定。年度終結或契約終止時，未休完之特休天數應發給工資；如要遞延次年，必須取得勞雇雙方書面協議。",
+                optSafe: "每年底依法將未休特休結算現金發放；若遞延次年皆簽署個別書面遞延協議書",
+                optDanger: "員工沒休完的特休「年底直接歸零沒收」、或口頭遞延但次年底未休完依然沒算薪水"
+            },
+            {
+                id: "q5",
+                num: "05",
+                title: "國定假日與出勤加倍發給",
+                law: "勞基法第 39 條",
+                penaltyText: "處罰 2 萬 ～ 100 萬元",
+                minFine: 20000,
+                maxFine: 1000000,
+                desc: "內政部所定休假日（國定假日）雇主應給假給薪。若徵得員工同意於國定假日出勤，當日工資應加倍發給（出勤 1 小時即加發 1 日工資）。",
+                optSafe: "國定假日休假照給薪資；若逢排班出勤，當日依法發給 2 倍工資或事先明確書面調移",
+                optDanger: "國定假日出勤僅發給一般薪資，未給予雙倍薪資補償，亦未書面指定調移休假日"
+            },
+            {
+                id: "q6",
+                num: "06",
+                title: "工作規則核備與公開揭示",
+                law: "勞基法第 70 條",
+                penaltyText: "處罰 2 萬 ～ 30 萬元",
+                minFine: 20000,
+                maxFine: 300000,
+                desc: "僱用勞工人數在 30 人以上之事業單位，應依規定訂立工作規則，報請主管機關核備後並於工作場所公開揭示。",
+                optSafe: "人數未達 30 人；或已達 30 人且工作規則已報經勞動局核備在案並向全員公開揭示",
+                optDanger: "公司已達 30 人但從未訂定工作規則、或訂了內部草案卻從未送勞工局審查核備"
+            },
+            {
+                id: "q7",
+                num: "07",
+                title: "2026 職場霸凌與不法侵害防制",
+                law: "職安法第 6 條第 2 項及新規",
+                penaltyText: "處罰 3 萬 ～ 15 萬元（可按次處罰）",
+                minFine: 30000,
+                maxFine: 150000,
+                desc: "雇主對於職務上不法侵害（職場霸凌、言語羞辱、情勒逼退），應採取預防措施、建置通報程序並適時進行事件調查與紀錄保存。",
+                optSafe: "已制定書面「執行職務遭受不法侵害防制計畫」，公告通報申訴信箱，具備標準調查流程",
+                optDanger: "尚未制定任何職場霸凌防制作業指引、無專責受理管道，發生糾紛僅由主管私下調解"
+            },
+            {
+                id: "q8",
+                num: "08",
+                title: "性別平等與性騷擾防治措施",
+                law: "性別平等工作法第 13 條",
+                penaltyText: "處罰 10 萬 ～ 50 萬元（負責人最高100萬）",
+                minFine: 100000,
+                maxFine: 500000,
+                desc: "僱用 10 人以上需訂申訴管道並公開揭示；30 人以上需訂性騷擾防治措施與懲戒規範。知悉性騷擾時必須立即採取有效糾正補救措施。",
+                optSafe: "已於工作場所公開張貼申訴管道，並訂立性騷擾防治與懲戒規範，知悉時啟動外部調查",
+                optDanger: "未公開張貼申訴管道與專屬信箱、或未曾制定性別工作平等申訴機制"
+            },
+            {
+                id: "q9",
+                num: "09",
+                title: "試用期退場與資遣通報義務",
+                law: "勞基法第 11/16/17 條及就服法",
+                penaltyText: "處罰 3 萬 ～ 15 萬元",
+                minFine: 30000,
+                maxFine: 150000,
+                desc: "我國現行勞基法無「試用期任意解僱」之免責！試用期終止仍須符合勞基法第11條各款，且須於10日前辦理資遣通報並計發資遣費。",
+                optSafe: "試用期考核標準明確；若評估不適任，皆依法發給預告工資、資遣費，並完成資遣通報",
+                optDanger: "曾以「試用期未過」為由當日直接請員工走人，未通報勞工局、亦未發給資遣費"
+            },
+            {
+                id: "q10",
+                num: "10",
+                title: "全額給付工資與禁止預扣違約金",
+                law: "勞基法第 22/26 條",
+                penaltyText: "處罰 2 萬 ～ 100 萬元",
+                minFine: 20000,
+                maxFine: 1000000,
+                desc: "工資應全額直接給付勞工。雇主不得預扣勞工工資作為違約金或賠償費用。例如「遲到扣半天薪水」、「打破杯盤強制扣薪」皆直接違法。",
+                optSafe: "遲到僅得按實際未出勤分鐘不發薪，絕無加倍罰扣；損害賠償依法另行求償，不預扣薪水",
+                optDanger: "內部約定「遲到一次扣500元或扣半天薪水」、「離職未提前告知直接扣半個月工資」"
+            }
+        ];
+
+        // 初始化渲染題目
+        function renderQuestions() {
+            const container = document.getElementById("questionsContainer");
+            container.innerHTML = QUIZ_DATA.map((q, idx) => `
+                <div class="question-card" id="card_${q.id}">
+                    <div class="q-header">
+                        <div class="q-number">${q.num}</div>
+                        <div class="q-body">
+                            <div class="q-title">${q.title}</div>
+                            <div>
+                                <span class="q-law-badge">📜 ${q.law}</span>
+                                <span class="q-penalty-tag">🚨 最高可處：${q.penaltyText}</span>
+                            </div>
+                            <div class="q-desc">${q.desc}</div>
+                        </div>
+                    </div>
+                    <div class="options-group">
+                        <label class="option-label selected-safe" id="lbl_safe_${q.id}">
+                            <input type="radio" class="option-input" name="${q.id}" value="safe" checked onchange="updateCalculation()">
+                            <span>✅ ${q.optSafe}</span>
+                        </label>
+                        <label class="option-label" id="lbl_danger_${q.id}">
+                            <input type="radio" class="option-input" name="${q.id}" value="danger" onchange="updateCalculation()">
+                            <span>⚠️ ${q.optDanger}</span>
+                        </label>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 動態即時計算邏輯
+        function updateCalculation() {
+            let totalMinFine = 0;
+            let totalMaxFine = 0;
+            let violationItems = [];
+
+            QUIZ_DATA.forEach(q => {
+                const radios = document.getElementsByName(q.id);
+                let selectedVal = "safe";
+                for (let r of radios) {
+                    if (r.checked) {
+                        selectedVal = r.value;
+                        break;
+                    }
+                }
+
+                const card = document.getElementById(`card_${q.id}`);
+                const lblSafe = document.getElementById(`lbl_safe_${q.id}`);
+                const lblDanger = document.getElementById(`lbl_danger_${q.id}`);
+
+                if (selectedVal === "danger") {
+                    card.classList.add("flagged");
+                    lblDanger.classList.add("selected-danger");
+                    lblSafe.classList.remove("selected-safe");
+
+                    totalMinFine += q.minFine;
+                    totalMaxFine += q.maxFine;
+
+                    violationItems.push({
+                        title: q.title,
+                        law: q.law,
+                        penaltyText: q.penaltyText
+                    });
+                } else {
+                    card.classList.remove("flagged");
+                    lblSafe.classList.add("selected-safe");
+                    lblDanger.classList.remove("selected-danger");
+                }
+            });
+
+            // 更新儀表板顯示
+            const fineDisplay = document.getElementById("fineAmountDisplay");
+            const fineSubtext = document.getElementById("fineSubtext");
+            const reportFineDisplay = document.getElementById("reportFineDisplay");
+            const riskBadge = document.getElementById("riskLevelBadge");
+            const violationCountDisplay = document.getElementById("violationCountDisplay");
+            const violationListContainer = document.getElementById("violationListContainer");
+
+            const vCount = violationItems.length;
+            violationCountDisplay.textContent = `${vCount} 項`;
+
+            if (vCount === 0) {
+                riskBadge.className = "risk-badge risk-safe";
+                riskBadge.innerHTML = "<span>🟢 合規優良</span>";
+                fineDisplay.textContent = "NT$ 0";
+                reportFineDisplay.textContent = "NT$ 0";
+                fineSubtext.textContent = "（依勞基法與職安法標準計算，目前尚無違法風險項）";
+
+                violationListContainer.innerHTML = `
+                    <div style="text-align: center; color: var(--safe-green); padding: 12px; font-weight: 600;">
+                        🎉 恭喜！目前勾選之管理制度均符合勞動法規標準，請繼續維持規範。
+                    </div>
+                `;
+            } else if (vCount <= 2) {
+                riskBadge.className = "risk-badge risk-warning";
+                riskBadge.innerHTML = "<span>🟡 中度警戒</span>";
+                const textStr = `NT$ ${totalMinFine.toLocaleString()} ～ ${totalMaxFine.toLocaleString()}`;
+                fineDisplay.textContent = textStr;
+                reportFineDisplay.textContent = textStr;
+                fineSubtext.textContent = `（偵測到 ${vCount} 項法規漏洞，遭勞檢可能處此區間罰鍰）`;
+
+                renderViolationList(violationItems, violationListContainer);
+            } else {
+                riskBadge.className = "risk-badge risk-danger";
+                riskBadge.innerHTML = "<span>🔴 嚴重高危</span>";
+                const textStr = `NT$ ${totalMinFine.toLocaleString()} ～ ${totalMaxFine.toLocaleString()}`;
+                fineDisplay.textContent = textStr;
+                reportFineDisplay.textContent = textStr;
+                fineSubtext.textContent = `（偵測到 ${vCount} 項重大違法地雷！極易面臨勞檢並列入公布名單）`;
+
+                renderViolationList(violationItems, violationListContainer);
+            }
+        }
+
+        function renderViolationList(items, container) {
+            container.innerHTML = `
+                <div style="font-weight: 700; color: #FF7675; margin-bottom: 10px;">⚠️ 檢測出之違規法條清單：</div>
+                ` + items.map(item => `
+                    <div class="violation-item">
+                        <div class="violation-icon">✕</div>
+                        <div style="flex-grow: 1;">
+                            <div style="font-weight: 600; color: #FFFFFF;">${item.title}（${item.law}）</div>
+                            <div style="color: var(--text-muted); font-size: 13px;">法定罰則：${item.penaltyText}</div>
+                        </div>
+                    </div>
+                `).join('');
+        }
+
+        // 一鍵複製診斷摘要至剪貼簿
+        function copyReportSummary() {
+            let totalMin = 0;
+            let totalMax = 0;
+            let violations = [];
+
+            QUIZ_DATA.forEach(q => {
+                const radios = document.getElementsByName(q.id);
+                for (let r of radios) {
+                    if (r.checked && r.value === "danger") {
+                        totalMin += q.minFine;
+                        totalMax += q.maxFine;
+                        violations.push(`• ${q.title}（${q.law}）`);
+                    }
+                }
+            });
+
+            let summaryText = "";
+            if (violations.length === 0) {
+                summaryText = `【星耀整合顧問】企業勞資合規快篩結果：\n合規狀態：🟢 優良（0項違規）\n潛在勞檢罰鍰：NT$ 0\n評估：制度健全，請繼續保持！\n--\n預約專家複核：https://line.me/R/ti/p/%40907qijtp`;
+            } else {
+                summaryText = `【星耀整合顧問】企業勞資合規快篩警示報告：\n風險等級：${violations.length > 2 ? '🔴 嚴重高危' : '🟡 中度警戒'}（共 ${violations.length} 項地雷）\n預估潛在罰鍰：NT$ ${totalMin.toLocaleString()} ～ NT$ ${totalMax.toLocaleString()}\n\n⚠️ 違規項目：\n${violations.join('\n')}\n\n💡 建議：建議立即啟動合規補強，避免勞檢開罰與勞資爭議。\n立即加 LINE 預約合規健檢方案（NT$ 3,980 起）：\nhttps://line.me/R/ti/p/%40907qijtp`;
+            }
+
+            navigator.clipboard.writeText(summaryText).then(() => {
+                const toast = document.getElementById("toast");
+                toast.classList.add("show");
+                setTimeout(() => {
+                    toast.classList.remove("show");
+                }, 3000);
+            }).catch(err => {
+                alert("複製失敗，請手動複製！");
+            });
+        }
+
+        // 頁面載入完成後執行渲染
+        window.addEventListener("DOMContentLoaded", () => {
+            renderQuestions();
+            updateCalculation();
+        });
+    </script>
+</body>
+</html>

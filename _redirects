@@ -1,0 +1,4 @@
+# 舊網址導回首頁（Search Console 回報 /home/ 404）
+/home    /    301
+/home/   /    301
+/home/*  /    301

@@ -55,8 +55,20 @@ h1{margin-top:28px;font-size:{tsize}px;line-height:1.32;font-weight:900;letter-s
 </body></html>"""
 
 
+# 線上工具頁的分享圖（slug, 圖示, 標籤, 標題, 重點）
+TOOLS = [
+    ('risk-checker', '🔍', '免費線上工具', '企業勞動法規風險線上快篩器', '3 分鐘勾選公司現況，看懂勞檢最常開罰的 10 個項目。'),
+    ('compliance-forms', '📝', '免費線上工具', '企業合規勞資表單一鍵生成器', '加班申請單、特休遞延協議書、勞資會議紀錄，線上填好直接列印。'),
+    ('bullying-checklist', '🛡️', '免費線上工具', '職場霸凌防治企業自檢表', '10 人、30 人、100 人以上各要做什麼，一張表檢查完。'),
+]
+
+
 def build(only=None):
     d = json.load(io.open(DATA, encoding='utf-8'))
+    for slug, icon, tag, title, line in TOOLS:
+        d['posts'].append({'slug': '__tool__' + slug, 'topic': '__tool__', 'title': title,
+                           'hero_line': line, '_icon': icon, '_tag': tag})
+    d['topics'].append({'slug': '__tool__', 'name': '免費線上工具', 'icon': '🔍'})
     topics = {t['slug']: t for t in d['topics']}
     os.makedirs(OUT, exist_ok=True)
     e = html.escape
@@ -70,7 +82,9 @@ def build(only=None):
         for post in d['posts']:
             if only and post['slug'] != only:
                 continue
-            t = topics[post['topic']]
+            t = dict(topics[post['topic']])
+            if post.get('_icon'):
+                t['icon'], t['name'] = post['_icon'], post['_tag']
             title = post['title'].split('｜')[0]
             # 標題越長字越小，維持在三行內
             tsize = 54 if len(title) <= 22 else 46 if len(title) <= 32 else 40
@@ -89,8 +103,12 @@ def build(only=None):
             pg.wait_for_timeout(150)
             png = pg.screenshot(type='png')
             im = Image.open(io.BytesIO(png)).convert('RGB')
-            im.save(os.path.join(OUT, post['slug'] + '.jpg'), quality=86, optimize=True, progressive=True)
-            im.save(os.path.join(OUT, post['slug'] + '.webp'), quality=82, method=6)
+            if post['slug'].startswith('__tool__'):
+                od = os.path.join(ROOT, 'assets', 'tools'); os.makedirs(od, exist_ok=True)
+                im.save(os.path.join(od, post['slug'][8:] + '.jpg'), quality=86, optimize=True, progressive=True)
+            else:
+                im.save(os.path.join(OUT, post['slug'] + '.jpg'), quality=86, optimize=True, progressive=True)
+                im.save(os.path.join(OUT, post['slug'] + '.webp'), quality=82, method=6)
             made += 1
         br.close()
     print('  封面圖 %d 張 → assets/blog/' % made)

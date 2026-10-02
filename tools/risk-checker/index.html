@@ -767,10 +767,10 @@
                 id: "q1",
                 num: "01",
                 title: "出勤紀錄分鐘制與打卡管理",
-                law: "勞基法第 30 條第 5 項",
-                penaltyText: "處罰 9 萬 ～ 45 萬元",
-                minFine: 90000,
-                maxFine: 450000,
+                law: "勞基法第 30 條第 5、6 項",
+                penaltyText: "沒置備或沒保存 5 年：9 萬 ～ 45 萬元；沒記到分鐘：2 萬 ～ 100 萬元",
+                minFine: 20000,
+                maxFine: 1000000,
                 desc: "雇主應置備勞工出勤紀錄，並記載至「分鐘」為止。若僅打卡上午/下午、紙本簽到無分鐘、或由主管統一填寫皆屬違法。",
                 optSafe: "已全面採用指紋/臉部/線上打卡，精準記載進出公司至「分鐘」，且依法保存至少 5 年",
                 optDanger: "僅有紙本簽到（無記錄到幾點幾分）、或部分員工未打卡、僅記錄打卡上午/下午"
@@ -839,10 +839,10 @@
                 id: "q7",
                 num: "07",
                 title: "2026 職場霸凌與不法侵害防制",
-                law: "職安法第 6 條第 2 項及新規",
-                penaltyText: "處罰 3 萬 ～ 15 萬元（可按次處罰）",
+                law: "職安法第 6 條第 2 項、第 22 條之 1",
+                penaltyText: "經通知限期改善、屆期未改善：3 萬 ～ 75 萬元",
                 minFine: 30000,
-                maxFine: 150000,
+                maxFine: 750000,
                 desc: "雇主對於職務上不法侵害（職場霸凌、言語羞辱、情勒逼退），應採取預防措施、建置通報程序並適時進行事件調查與紀錄保存。",
                 optSafe: "已制定書面「執行職務遭受不法侵害防制計畫」，公告通報申訴信箱，具備標準調查流程",
                 optDanger: "尚未制定任何職場霸凌防制作業指引、無專責受理管道，發生糾紛僅由主管私下調解"
@@ -852,9 +852,9 @@
                 num: "08",
                 title: "性別平等與性騷擾防治措施",
                 law: "性別平等工作法第 13 條",
-                penaltyText: "處罰 10 萬 ～ 50 萬元（負責人最高100萬）",
-                minFine: 100000,
-                maxFine: 500000,
+                penaltyText: "依違反情形 1 萬 ～ 100 萬元（30 人以上未訂防治規範：2 萬 ～ 30 萬元）",
+                minFine: 10000,
+                maxFine: 1000000,
                 desc: "僱用 10 人以上需訂申訴管道並公開揭示；30 人以上需訂性騷擾防治措施與懲戒規範。知悉性騷擾時必須立即採取有效糾正補救措施。",
                 optSafe: "已於工作場所公開張貼申訴管道，並訂立性騷擾防治與懲戒規範，知悉時啟動外部調查",
                 optDanger: "未公開張貼申訴管道與專屬信箱、或未曾制定性別工作平等申訴機制"
@@ -867,7 +867,7 @@
                 penaltyText: "處罰 3 萬 ～ 15 萬元",
                 minFine: 30000,
                 maxFine: 150000,
-                desc: "我國現行勞基法無「試用期任意解僱」之免責！試用期終止仍須符合勞基法第11條各款，且須於10日前辦理資遣通報並計發資遣費。",
+                desc: "勞基法沒有「試用期可任意解僱」的規定。勞動部見解是試用期終止仍須依第 11、16、17 條辦理（法院見解較寬）；資遣通報則一律須於離職 10 日前辦理。",
                 optSafe: "試用期考核標準明確；若評估不適任，皆依法發給預告工資、資遣費，並完成資遣通報",
                 optDanger: "曾以「試用期未過」為由當日直接請員工走人，未通報勞工局、亦未發給資遣費"
             },
@@ -876,7 +876,7 @@
                 num: "10",
                 title: "全額給付工資與禁止預扣違約金",
                 law: "勞基法第 22/26 條",
-                penaltyText: "處罰 2 萬 ～ 100 萬元",
+                penaltyText: "未全額給付：2 萬 ～ 100 萬元；預扣違約金：9 萬 ～ 45 萬元",
                 minFine: 20000,
                 maxFine: 1000000,
                 desc: "工資應全額直接給付勞工。雇主不得預扣勞工工資作為違約金或賠償費用。例如「遲到扣半天薪水」、「打破杯盤強制扣薪」皆直接違法。",
@@ -1054,5 +1054,9 @@
             updateCalculation();
         });
     </script>
+<section id="sb-related-articles" style="max-width:820px;margin:40px auto;padding:0 5%;font-family:inherit">
+<h2 style="font-size:1.15rem;color:#1C3A5E;margin:0 0 14px;border-left:5px solid #0891B2;padding-left:12px">延伸閱讀：相關法規專欄</h2>
+<a href="/blog/labor-inspection-what-inspectors-check/" style="display:block;background:#F0F7FF;border:1px solid #DBEAFE;border-radius:10px;padding:14px 16px;margin:0 0 10px;text-decoration:none;color:#1C3A5E;font-weight:600">勞檢員上門當天會看什麼？必備文件清單與拒檢的代價<span style="display:block;font-weight:400;color:#64748B;font-size:.88rem;margin-top:4px">勞動檢查員得隨時進入事業單位，拒絕、規避或妨礙可處 3 萬至 15 萬元並按次處罰。當天必備的三份文件裡，漏了出勤紀錄罰得最重——9 萬起跳。</span></a><a href="/blog/labor-inspection-common-violations/" style="display:block;background:#F0F7FF;border:1px solid #DBEAFE;border-radius:10px;padding:14px 16px;margin:0 0 10px;text-decoration:none;color:#1C3A5E;font-weight:600">勞檢最常開罰的四件事<span style="display:block;font-weight:400;color:#64748B;font-size:.88rem;margin-top:4px">延長工時一日不得逾 12 小時、一個月 46 小時；休息日加班費與平日是兩套費率；特休未休不得作廢。四項全落在 2 萬至 100 萬元的同一級距。</span></a><a href="/blog/labor-inspection-statement-of-opinion-guide/" style="display:block;background:#F0F7FF;border:1px solid #DBEAFE;border-radius:10px;padding:14px 16px;margin:0 0 10px;text-decoration:none;color:#1C3A5E;font-weight:600">收到勞動部「陳述意見通知書」，該怎麼回？<span style="display:block;font-weight:400;color:#64748B;font-size:.88rem;margin-top:4px">陳述意見不是走形式，是裁罰前你唯一能講話的機會。該寫什麼、不該寫什麼，回覆前先看這篇。</span></a><a href="/blog/labor-inspection-appeal-after-penalty/" style="display:block;background:#F0F7FF;border:1px solid #DBEAFE;border-radius:10px;padding:14px 16px;margin:0 0 10px;text-decoration:none;color:#1C3A5E;font-weight:600">收到裁處書之後，還能救嗎？<span style="display:block;font-weight:400;color:#64748B;font-size:.88rem;margin-top:4px">訴願三十日，自處分達到之次日起算，以收受日為準。訴願書要「經由原行政處分機關」提起——直接寄給上級是最常見的誤解。</span></a><p style="margin-top:6px"><a href="/blog/" style="color:#0891B2">看全部勞資法規專欄 →</a></p>
+</section>
 </body>
 </html>

@@ -44,6 +44,15 @@ def build(d=None):
         lastmod = p.get('modified') or p.get('date') or today
         urls.append(('%s/blog/%s/' % (SITE, p['slug']), lastmod, '0.7', 'monthly'))
 
+    # 線上工具頁
+    tdir = os.path.join(ROOT, 'tools')
+    if os.path.isdir(tdir):
+        if os.path.exists(os.path.join(tdir, 'index.html')):
+            urls.append((SITE + '/tools/', today, '0.7', 'monthly'))
+        for tn in sorted(os.listdir(tdir)):
+            if os.path.exists(os.path.join(tdir, tn, 'index.html')):
+                urls.append(('%s/tools/%s/' % (SITE, tn), today, '0.7', 'monthly'))
+
     for leg in ('privacy', 'terms'):
         if leg in EXCLUDE:
             continue
@@ -51,13 +60,17 @@ def build(d=None):
             urls.append(('%s/%s/' % (SITE, leg), today, '0.3', 'yearly'))
 
     parts = ['<?xml version="1.0" encoding="UTF-8"?>',
-             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+             'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">']
+    imgs = {'%s/blog/%s/' % (SITE, p['slug']): '%s/assets/blog/%s.jpg' % (SITE, p['slug']) for p in posts}
     for loc, lastmod, pri, cf in urls:
         parts.append('  <url>')
         parts.append('    <loc>%s</loc>' % loc)
         parts.append('    <lastmod>%s</lastmod>' % lastmod)
         parts.append('    <changefreq>%s</changefreq>' % cf)
         parts.append('    <priority>%s</priority>' % pri)
+        if loc in imgs and os.path.exists(os.path.join(ROOT, imgs[loc].replace(SITE + '/', ''))):
+            parts.append('    <image:image><image:loc>%s</image:loc></image:image>' % imgs[loc])
         parts.append('  </url>')
     parts.append('</urlset>')
 

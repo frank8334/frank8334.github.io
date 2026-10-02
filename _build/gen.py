@@ -54,6 +54,8 @@ main{padding:52px 5% 70px;max-width:1120px;margin:0 auto}
 .posts{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
 .post{background:var(--light);border:1px solid #DBEAFE;border-radius:12px;padding:25px 23px;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
 .post:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(37,99,235,.12)}
+.post .thumb{display:block;margin:-25px -23px 16px;border-radius:12px 12px 0 0;overflow:hidden;aspect-ratio:1200/630;background:#0B1B30}
+.post .thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .post .badge{align-self:flex-start;background:#DCFCE7;color:#166534;font-size:.73rem;font-weight:700;padding:3px 11px;border-radius:20px;margin-bottom:12px}
 .post .badge.hot{background:#FEF3C7;color:var(--gold)}
 .post h3{font-size:1.04rem;font-weight:700;color:var(--navy);line-height:1.55;margin-bottom:9px}
@@ -142,6 +144,7 @@ def post_card(p, topics_by_slug, show_topic=True):
     topic_line = (f'<a class="topiclink" href="/blog/topic/{t["slug"]}/">{e(t["icon"])} {e(t["name"])}</a>'
                   if show_topic else '<span></span>')
     return f"""    <article class="post">
+      <a class="thumb" href="/blog/{p['slug']}/" tabindex="-1" aria-hidden="true"><picture><source srcset="/assets/blog/{p['slug']}.webp" type="image/webp"><img src="/assets/blog/{p['slug']}.jpg" width="1200" height="630" alt="" loading="lazy"></picture></a>
       <span class="{badge_cls}">{e(p.get('badge','專欄'))}</span>
       <h3><a href="/blog/{p['slug']}/">{e(p['title'])}</a></h3>
       <p>{e(p['excerpt'])}</p>

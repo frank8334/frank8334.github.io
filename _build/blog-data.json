@@ -56,7 +56,9 @@
     "職場霸凌防治",
     "霸凌防治",
     "職場霸凌"
-   ]
+   ],
+   "hero_line": "職安法職場霸凌專章已於 2026 年 7 月 1 日施行。",
+   "modified": "2026-10-02"
   },
   {
    "slug": "workplace-bullying-boss-accused-employer-defense",
@@ -68,7 +70,9 @@
    "date": "2026-09-14",
    "link_terms": [
     "最高負責人"
-   ]
+   ],
+   "hero_line": "被申訴的是負責人時，內部調查失去公正性，勞工可逕向地方主管機關申訴——這條多數企業的制度裡根本沒寫。",
+   "modified": "2026-10-02"
   },
   {
    "slug": "labor-inspection-statement-of-opinion-guide",
@@ -79,7 +83,9 @@
    "date": "2026-09-14",
    "link_terms": [
     "陳述意見"
-   ]
+   ],
+   "hero_line": "陳述意見不是走形式，是裁罰前你唯一能講話的機會。",
+   "modified": "2026-09-14"
   },
   {
    "slug": "off-duty-accident-occupational-injury-guide",
@@ -91,7 +97,9 @@
    "link_terms": [
     "通勤職災",
     "上下班途中"
-   ]
+   ],
+   "hero_line": "「日常生活所必需」的繞道到哪裡為止？",
+   "modified": "2026-10-02"
   },
   {
    "slug": "work-rules-30-employees-filing",
@@ -102,7 +110,8 @@
    "date": "2026-09-14",
    "link_terms": [
     "工作規則"
-   ]
+   ],
+   "hero_line": "訂立、報請核備、公開揭示，三個動作缺一不可。"
   },
   {
    "slug": "labor-management-meeting-requirement",
@@ -114,7 +123,9 @@
    "date": "2026-09-14",
    "link_terms": [
     "勞資會議"
-   ]
+   ],
+   "hero_line": "沒開本身沒有罰則，但變形工時、加班上限、七休一調整全都要「經勞資會議同意」——開關沒開，後面接的東西都不能用。",
+   "modified": "2026-10-02"
   },
   {
    "slug": "layoff-notice-and-reporting",
@@ -128,7 +139,8 @@
     "資遣費",
     "資遣預告",
     "資遣"
-   ]
+   ],
+   "hero_line": "「預告」和「資遣通報」是兩件事，最常被整個漏掉的是後者——它不是給員工的，是給政府的，而且給了預告工資也免不掉。"
   },
   {
    "slug": "probation-period-dismissal",
@@ -139,7 +151,8 @@
    "date": "2026-09-14",
    "link_terms": [
     "試用期"
-   ]
+   ],
+   "hero_line": "勞基法施行細則的試用期規定民國 86 年就刪除了。"
   },
   {
    "slug": "startup-loan-youth-vs-phoenix",
@@ -153,7 +166,8 @@
     "青年創業貸款",
     "鳳凰貸款",
     "青創"
-   ]
+   ],
+   "hero_line": "不是哪個好貸，是你通常只有一套能選。"
   },
   {
    "slug": "startup-loan-application-checklist",
@@ -164,9 +178,9 @@
    "date": "2026-09-14",
    "link_terms": [
     "創業貸款計畫書",
-    "創業貸款",
-    "計畫書"
-   ]
+    "創業貸款"
+   ],
+   "hero_line": "卡住送件的多半不是計畫書寫得不好，是資格或文件在動筆前就已經不符。"
   },
   {
    "slug": "labor-inspection-what-inspectors-check",
@@ -180,7 +194,9 @@
     "勞動檢查員",
     "勞動檢查",
     "勞檢"
-   ]
+   ],
+   "hero_line": "勞動檢查員得隨時進入事業單位，拒絕、規避或妨礙可處 3 萬至 15 萬元並按次處罰。",
+   "modified": "2026-10-02"
   },
   {
    "slug": "occupational-injury-employer-compensation-duties",
@@ -194,7 +210,9 @@
     "職業災害補償",
     "職業災害",
     "職災"
-   ]
+   ],
+   "hero_line": "勞基法第 59 條是無過失責任，員工自己不小心也一樣要補償。",
+   "modified": "2026-09-14"
   },
   {
    "slug": "workplace-bullying-small-company-obligations",
@@ -207,7 +225,9 @@
    "link_terms": [
     "申訴管道",
     "公開揭示"
-   ]
+   ],
+   "hero_line": "門檻是 10 人不是 30 人。",
+   "modified": "2026-09-14"
   },
   {
    "slug": "workplace-bullying-complaint-timeline",
@@ -221,7 +241,9 @@
     "登錄系統",
     "受理申訴",
     "申訴期限"
-   ]
+   ],
+   "hero_line": "10 個工作日決定受理、受理翌日起 7 個工作日登錄系統、調查 2 個月、決定 1 個月。",
+   "modified": "2026-09-14"
   },
   {
    "slug": "workplace-bullying-investigation-team-external-experts",
@@ -234,8 +256,11 @@
    "link_terms": [
     "調查小組",
     "外部專業人士",
-    "外部委員"
-   ]
+    "外部委員",
+    "申復"
+   ],
+   "hero_line": "100 人以上初次調查才需外部委員達二分之一——但 30 人以上走到申復階段，同樣至少要有一位外部專業人士。",
+   "modified": "2026-09-14"
   },
   {
    "slug": "labor-inspection-common-violations",
@@ -249,7 +274,9 @@
     "延長工時",
     "加班費",
     "特別休假"
-   ]
+   ],
+   "hero_line": "延長工時一日不得逾 12 小時、一個月 46 小時；休息日加班費與平日是兩套費率；特休未休不得作廢。",
+   "modified": "2026-09-14"
   },
   {
    "slug": "labor-inspection-employee-complaint-protection",
@@ -261,8 +288,11 @@
    "date": "2026-09-14",
    "link_terms": [
     "檢舉",
-    "申訴權"
-   ]
+    "申訴權",
+    "不利處分"
+   ],
+   "hero_line": "不行，後果有兩層：不利處分無效，再加 2 萬至 30 萬元罰鍰。",
+   "modified": "2026-09-14"
   },
   {
    "slug": "labor-inspection-appeal-after-penalty",
@@ -274,8 +304,11 @@
    "date": "2026-09-14",
    "link_terms": [
     "訴願",
-    "裁處書"
-   ]
+    "裁處書",
+    "行政救濟"
+   ],
+   "hero_line": "訴願三十日，自處分達到之次日起算，以收受日為準。",
+   "modified": "2026-09-14"
   },
   {
    "slug": "sme-definition-eligibility",
@@ -287,8 +320,11 @@
    "date": "2026-09-14",
    "link_terms": [
     "中小企業認定標準",
-    "中小企業"
-   ]
+    "中小企業認定",
+    "經常僱用員工數"
+   ],
+   "hero_line": "資本額一億以下「或」員工未滿二百人——是二擇一，不是兩個都要。",
+   "modified": "2026-09-14"
   },
   {
    "slug": "loan-rejected-what-to-do",
@@ -300,8 +336,11 @@
    "date": "2026-09-14",
    "link_terms": [
     "融資診斷",
-    "被拒絕"
-   ]
+    "貸款被拒",
+    "拒絕貸款"
+   ],
+   "hero_line": "第一件事是請銀行說明原因。",
+   "modified": "2026-09-14"
   },
   {
    "slug": "employment-contract-required-terms",
@@ -313,7 +352,9 @@
    "date": "2026-09-14",
    "link_terms": [
     "勞動契約"
-   ]
+   ],
+   "hero_line": "施行細則第 7 條列了十三款應約定事項。",
+   "modified": "2026-10-02"
   },
   {
    "slug": "non-compete-and-minimum-service-period",
@@ -326,7 +367,9 @@
    "link_terms": [
     "競業禁止",
     "最低服務年限"
-   ]
+   ],
+   "hero_line": "競業禁止四款要件缺一即整條無效，補償不得用在職薪資充數，期間最長二年。",
+   "modified": "2026-09-14"
   },
   {
    "slug": "fixed-term-vs-indefinite-contract",
@@ -338,8 +381,11 @@
    "date": "2026-09-14",
    "link_terms": [
     "定期契約",
-    "不定期契約"
-   ]
+    "不定期契約",
+    "一年一聘"
+   ],
+   "hero_line": "有繼續性工作應為不定期契約。",
+   "modified": "2026-09-14"
   },
   {
    "slug": "summary-dismissal-just-cause",
@@ -353,7 +399,9 @@
     "不經預告終止",
     "情節重大",
     "曠工"
-   ]
+   ],
+   "hero_line": "勞基法第 12 條列了六款事由，但其中五款受三十日除斥期間限制。",
+   "modified": "2026-10-02"
   },
   {
    "slug": "constructive-dismissal-section-14",
@@ -364,9 +412,12 @@
    "hot": false,
    "date": "2026-09-14",
    "link_terms": [
-    "第 14 條",
+    "勞基法第 14 條",
+    "勞動基準法第 14 條",
     "被迫離職"
-   ]
+   ],
+   "hero_line": "勞基法第 14 條讓勞工在雇主違法時得不經預告終止契約，而第 4 項準用第 17 條——資遣費照給。",
+   "modified": "2026-10-02"
   },
   {
    "slug": "labor-dispute-mediation-process",
@@ -378,8 +429,11 @@
    "date": "2026-09-14",
    "link_terms": [
     "勞資爭議調解",
-    "調解"
-   ]
+    "調解",
+    "勞資爭議"
+   ],
+   "hero_line": "三日內指派調解人、七日內開始調解、十日內作出方案。",
+   "modified": "2026-10-02"
   },
   {
    "slug": "occupational-injury-8-hour-reporting",
@@ -392,7 +446,9 @@
    "link_terms": [
     "八小時內通報",
     "職災通報"
-   ]
+   ],
+   "hero_line": "職安法第 37 條規定四類災害應於八小時內通報，其中「一人以上且需住院治療」最常被誤判為不用報。",
+   "modified": "2026-10-02"
   },
   {
    "slug": "original-wage-calculation",
@@ -403,8 +459,11 @@
    "hot": false,
    "date": "2026-09-14",
    "link_terms": [
-    "原領工資"
-   ]
+    "原領工資",
+    "工資補償"
+   ],
+   "hero_line": "按月計酬者以災害前最近一個月正常工作時間所得之工資除以三十。",
+   "modified": "2026-09-14"
   },
   {
    "slug": "employer-safety-duty-prevention",
@@ -416,8 +475,12 @@
    "date": "2026-09-14",
    "link_terms": [
     "預防義務",
-    "職場暴力"
-   ]
+    "職場暴力",
+    "不法侵害",
+    "異常工作負荷"
+   ],
+   "hero_line": "職安法第 6 條第 2 項涵蓋重複性作業、過勞，以及執行職務因他人行為遭受身體或精神不法侵害。",
+   "modified": "2026-10-02"
   }
  ]
 }

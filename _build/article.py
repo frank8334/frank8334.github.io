@@ -68,6 +68,8 @@ blockquote p{margin:6px 0}
 .src ul{margin:8px 0 0 20px}
 .xlink{color:var(--blue);text-decoration:none;border-bottom:1px solid #BFDBFE;font-weight:600;padding-bottom:1px}
 .xlink:hover{border-bottom-color:var(--blue);background:var(--light)}
+.hero{margin:0 0 24px}.hero img{width:100%;height:auto;border-radius:12px;display:block;box-shadow:0 4px 18px rgba(15,30,53,.18)}
+.src a{color:var(--teal)}
 .related{margin-top:38px}
 .related h2{font-size:1.08rem;font-weight:800;color:var(--navy);margin-bottom:14px}
 .related a{display:block;background:var(--light);border:1px solid #DBEAFE;border-radius:10px;padding:14px 16px;margin-bottom:10px;text-decoration:none;color:var(--navy);font-weight:600;font-size:.95rem}
@@ -108,6 +110,37 @@ FOOT = """<footer>
 </footer>"""
 
 e = html.escape
+
+# 法源連到全國法規資料庫原文（對外的權威連結，讀者可自行核對）
+LAW_PCODE = {
+    '勞動基準法施行細則': 'N0030002', '勞動基準法': 'N0030001', '勞動檢查法': 'N0070001',
+    '職業安全衛生法': 'N0060001', '職場霸凌防治措施準則': 'N0060085',
+    '勞資會議實施辦法': 'N0020008', '勞資爭議處理法': 'N0020007', '勞工請假規則': 'N0030006',
+    '勞工職業災害保險職業傷病審查準則': 'N0050008', '勞工職業災害保險及保護法': 'N0050031',
+    '就業服務法': 'N0090001', '勞工退休金條例': 'N0030020', '中小企業認定標準': 'J0140003',
+    '訴願法': 'A0030020', '行政程序法': 'A0030055', '行政罰法': 'A0030210', '刑法': 'C0000001',
+    '民法': 'B0000001', '性別平等工作法': 'N0030014', '勞動事件法': 'B0010064',
+}
+_LAW_RE = re.compile('《(' + '|'.join(sorted(LAW_PCODE, key=len, reverse=True)) + ')》')
+
+
+def law_links(t):
+    """把法源清單裡的《法規名稱》連到全國法規資料庫（每條法源只連第一個出現的法規）。"""
+    return _LAW_RE.sub(lambda m: '<a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=%s" '
+                       'target="_blank" rel="noopener">《%s》</a>' % (LAW_PCODE[m.group(1)], m.group(1)), t, count=1)
+
+
+def see_also(slug, topic, body, posts, exclude, n=2):
+    """跨主題延伸閱讀：別的主題裡、代表詞出現在本篇最多次的文章。補足只靠同主題互連時連不到的文章。"""
+    scored = []
+    for p in posts:
+        if p['slug'] == slug or p['topic'] == topic or p['slug'] in exclude:
+            continue
+        hits = sum(body.count(t) for t in p.get('link_terms', []))
+        if hits:
+            scored.append((-hits, p['slug'], p))
+    scored.sort()
+    return [p for _, _, p in scored[:n]]
 
 
 def inline(t):
@@ -197,15 +230,22 @@ def build(only=None):
         fm, body = parse(os.path.join(POSTS, fn))
         t = topics[fm['topic']]
         can = '%s/blog/%s/' % (SITE, slug)
+        img = '%s/assets/blog/%s.jpg' % (SITE, slug)
+        modified = fm.get('modified', fm['date'])
         # 同主題的其他文章
-        rel = [p for p in d['posts'] if p['topic'] == fm['topic'] and p['slug'] != slug][:3]
+        # 同主題取「排在本篇後面」的 3 篇（循環），讓同主題每篇被連到的次數平均，不會永遠只連前 3 篇
+        same = [p for p in d['posts'] if p['topic'] == fm['topic']]
+        k = next(i for i, p in enumerate(same) if p['slug'] == slug)
+        rel = [same[(k + j) % len(same)] for j in range(1, min(4, len(same)))]
         rel_html = ''
-        if rel:
-            rel_html = '<div class="related"><h2>同主題其他文章</h2>' + ''.join(
-                '<a href="/blog/%s/">%s<span>%s</span></a>' % (r['slug'], e(r['title']), e(r['excerpt']))
-                for r in rel) + '</div>'
         # 內文互鏈：別篇的代表詞在本篇首次出現時連過去
         body_html, _xlinked = xlink.apply(md2html(body), slug, d['posts'])
+        more = see_also(slug, fm['topic'], body, d['posts'], set(_xlinked) | {r['slug'] for r in rel})
+        rel = rel + more
+        if rel:
+            rel_html = '<div class="related"><h2>延伸閱讀</h2>' + ''.join(
+                '<a href="/blog/%s/">%s<span>%s</span></a>' % (r['slug'], e(r['title']), e(r['excerpt']))
+                for r in rel) + '</div>'
         faq_html = ''
         if fm.get('faq'):
             faq_html = '<div class="faq-wrap"><h2>常見問題</h2>' + ''.join(
@@ -214,15 +254,18 @@ def build(only=None):
         src_html = ''
         if fm.get('sources'):
             src_html = ('<div class="src"><b>本文依據的一手法源</b><ul>' +
-                        ''.join('<li>%s</li>' % inline(s) for s in fm['sources']) +
+                        ''.join('<li>%s</li>' % law_links(inline(s)) for s in fm['sources']) +
                         '</ul><p style="margin-top:10px">法規以主管機關最新公告為準；'
                         '個案適用性請洽主管機關或專業顧問確認。</p></div>')
         graph = [{
             "@type": "Article", "headline": fm['h1'], "description": fm['desc'],
             "datePublished": fm['date'] + "T08:00:00+08:00",
             "dateModified": fm.get('modified', fm['date']) + "T08:00:00+08:00",
-            "author": {"@type": "Person", "name": "賴力瑀 Frank"},
-            "publisher": {"@type": "Organization", "name": "星耀整合顧問", "url": SITE},
+            "image": {"@type": "ImageObject", "url": img, "width": 1200, "height": 630},
+            "author": {"@type": "Person", "name": "賴力瑀 Frank", "url": SITE + "/",
+                       "jobTitle": "勞資合規顧問"},
+            "publisher": {"@type": "Organization", "name": "星耀整合顧問", "url": SITE,
+                          "logo": {"@type": "ImageObject", "url": SITE + "/assets/logo.png"}},
             "mainEntityOfPage": can, "articleSection": t['name']}]
         if fm.get('faq'):
             graph.append({"@type": "FAQPage", "mainEntity": [
@@ -249,6 +292,17 @@ def build(only=None):
 <meta property="og:type" content="article" />
 <meta property="og:site_name" content="星耀整合顧問" />
 <meta property="og:url" content="{can}" />
+<meta property="og:locale" content="zh_TW" />
+<meta property="og:image" content="{img}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="{e(fm['h1'])}" />
+<meta property="article:published_time" content="{fm['date']}T08:00:00+08:00" />
+<meta property="article:modified_time" content="{modified}T08:00:00+08:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{e(fm['h1'])}" />
+<meta name="twitter:description" content="{e(fm['desc'])}" />
+<meta name="twitter:image" content="{img}" />
 <script type="application/ld+json">
 {json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False, indent=1)}
 </script>
@@ -259,12 +313,13 @@ def build(only=None):
 <div class="meta"><div class="wrap">
   <div class="crumb"><a href="/">首頁</a> ／ <a href="/blog/">勞資法規專欄</a> ／ <a href="/blog/topic/{t['slug']}/">{e(t['name'])}</a></div>
   <span class="kicker">{e(fm['kicker'])}</span>
-  <span class="byline">作者：賴力瑀 Frank｜發布：{e(fm['date'])}</span>
+  <span class="byline">作者：賴力瑀 Frank｜發布：{e(fm['date'])}{'｜更新：' + e(modified) if modified != fm['date'] else ''}</span>
 </div></div>
 
 <div class="wrap">
 <article>
   <h1>{e(fm['h1'])}</h1>
+  <figure class="hero"><picture><source srcset="/assets/blog/{slug}.webp" type="image/webp"><img src="/assets/blog/{slug}.jpg" width="1200" height="630" alt="{e(fm['h1'])}" fetchpriority="high"></picture></figure>
   <div class="lede">{inline(fm['lede'])}</div>
 {body_html}
 {faq_html}

@@ -13,7 +13,7 @@ DATA = os.path.join(ROOT, '_build', 'blog-data.json')
 SITE = 'https://starbright-integrated.com'
 
 # 不得出現在 sitemap 的路徑
-EXCLUDE = {'admin'}
+EXCLUDE = {'admin', 'privacy', 'terms', 'content-uploader'}
 
 ROBOTS = """User-agent: *
 Allow: /
@@ -52,6 +52,9 @@ def build(d=None):
         for tn in sorted(os.listdir(tdir)):
             if os.path.exists(os.path.join(tdir, tn, 'index.html')):
                 urls.append(('%s/tools/%s/' % (SITE, tn), today, '0.7', 'monthly'))
+
+    if os.path.exists(os.path.join(ROOT, 'website-privacy', 'index.html')):
+        urls.append((SITE + '/website-privacy/', today, '0.3', 'yearly'))
 
     for leg in ('privacy', 'terms'):
         if leg in EXCLUDE:

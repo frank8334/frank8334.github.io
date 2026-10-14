@@ -1,40 +1,39 @@
-// GA4 Conversion Event Tracking – deferred (runs after page load)
-(function() {
-  if (typeof gtag !== 'function') return;
-
-  document.addEventListener('DOMContentLoaded', function() {
-    var navCta = document.querySelector('nav .nav-cta');
-    if (navCta) navCta.addEventListener('click', function() {
-      gtag('event', 'cta_click', { location: 'navbar', label: '免費預約諮詢' });
-    });
-    var heroBtn = document.querySelector('.hero .btn-primary');
-    if (heroBtn) heroBtn.addEventListener('click', function() {
-      gtag('event', 'cta_click', { location: 'hero', label: '預約免費30分鐘諮詢' });
-    });
-    var lineBtn = document.querySelector('.line-cta');
-    if (lineBtn) lineBtn.addEventListener('click', function() {
-      gtag('event', 'line_click', { location: 'contact_section', label: '加LINE立即諮詢' });
-    });
-    var phoneLink = document.querySelector('a[href^="tel:"]');
-    if (phoneLink) phoneLink.addEventListener('click', function() {
-      gtag('event', 'phone_click', { location: 'contact_section', label: '0905-732-500' });
-    });
-    document.querySelectorAll('a[href^="mailto:"]').forEach(function(el) {
-      el.addEventListener('click', function() {
-        gtag('event', 'email_click', { location: 'contact_section', label: el.href });
-      });
-    });
-    var servicesSeen = false, servicesEl = document.getElementById('services');
-    var contactSeen = false, contactEl = document.getElementById('contact');
-    window.addEventListener('scroll', function() {
-      if (!servicesSeen && servicesEl && servicesEl.getBoundingClientRect().top < window.innerHeight * 0.8) {
-        servicesSeen = true;
-        gtag('event', 'scroll_to_services', { label: '瀏覽服務項目' });
-      }
-      if (!contactSeen && contactEl && contactEl.getBoundingClientRect().top < window.innerHeight * 0.8) {
-        contactSeen = true;
-        gtag('event', 'scroll_to_contact', { label: '抵達聯絡區塊' });
-      }
-    }, { passive: true });
+// 委派監聽涵蓋文章、工具頁及動態更新的聯絡連結。
+(function () {
+  if (window.__starbrightAnalyticsBound) return;
+  window.__starbrightAnalyticsBound = true;
+  function track(name, location) {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', name, { location: location, page_path: window.location.pathname });
+    }
+  }
+  document.addEventListener('click', function (event) {
+    var link = event.target.closest && event.target.closest('a[href]');
+    if (!link) return;
+    var url;
+    try { url = new URL(link.href, window.location.href); } catch (_) { return; }
+    var location = link.closest('footer') ? 'footer' : link.closest('nav') ? 'navbar' :
+      link.closest('.hero') ? 'hero' : link.closest('#contact') ? 'contact_section' : 'content';
+    // 不送出電話、email、諮詢文字或網址查詢參數。
+    if (url.hostname === 'line.me' || url.hostname === 'lin.ee') track('line_click', location);
+    else if (url.protocol === 'tel:') track('phone_click', location);
+    else if (url.protocol === 'mailto:') track('email_click', location);
+    else if (link.matches('nav .nav-cta, .hero .btn-primary')) track('cta_click', location);
   });
+  function bindScroll() {
+    var seen = {};
+    function inspect() {
+      ['services', 'contact'].forEach(function (id) {
+        var element = document.getElementById(id);
+        if (!seen[id] && element && element.getBoundingClientRect().top < window.innerHeight * 0.8) {
+          seen[id] = true;
+          track('scroll_to_' + id, id === 'contact' ? 'contact_section' : 'content');
+        }
+      });
+    }
+    window.addEventListener('scroll', inspect, { passive: true });
+    inspect();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindScroll, { once: true });
+  else bindScroll();
 })();

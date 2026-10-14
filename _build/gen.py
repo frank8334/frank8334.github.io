@@ -285,6 +285,9 @@ def build():
     import sitemap
     sitemap.build(d)
 
+    import seo_sync
+    seo_sync.sync()
+
 
 
 if __name__ == '__main__':

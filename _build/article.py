@@ -349,6 +349,9 @@ def build(only=None):
         print('  blog/%s/index.html' % m_)
     print('共 %d 篇' % len(made))
 
+    import seo_sync
+    seo_sync.sync()
+
 
 if __name__ == '__main__':
     build(sys.argv[1] if len(sys.argv) > 1 else None)

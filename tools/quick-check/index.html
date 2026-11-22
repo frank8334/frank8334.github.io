@@ -39,6 +39,7 @@
     .checkbox-item input { margin-top: 3px; accent-color: var(--primary); }
     .btn-submit { width: 100%; background: var(--primary); color: #FFFFFF; border: none; padding: 14px; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.2s; margin-top: 10px; }
     .btn-submit:hover { background: #172554; }
+    .btn-submit:disabled { opacity:.55; cursor:not-allowed; }
     .result-box { display: none; background: #FFFFFF; border-radius: 16px; padding: 20px; border: 2px solid var(--primary-light); margin-top: 20px; }
     .score-badge { display: inline-block; padding: 6px 14px; border-radius: 8px; font-size: 14px; font-weight: 700; margin-bottom: 12px; }
     .score-green { background: #D1FAE5; color: #065F46; }
@@ -49,17 +50,31 @@
     .line-cta { background: #06C755; color: #FFFFFF; padding: 14px; border-radius: 10px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700; font-size: 15px; margin-top: 16px; box-shadow: 0 4px 6px -1px rgba(6,199,85,0.3); }
     .footer { text-align: center; font-size: 12px; color: var(--text-muted); margin: 24px 0 16px; }
     .tab-nav { flex-wrap: wrap; }
-    .tab-btn { min-width: 22%; }
+    .tab-btn { min-width: 22%; min-height: 44px; }
+    .calc-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    select, input[type="number"], input[type="date"], input[type="text"] { font-size:16px; }
+    input[type="date"] { width:100%; min-height:44px; border:1px solid var(--border); border-radius:8px; padding:8px; }
+    :focus-visible { outline:2px solid var(--primary); outline-offset:2px; }
+    @media (max-width:400px) { .calc-grid { grid-template-columns:minmax(0,1fr); } .tab-btn { min-width:30%; } }
+    .line-cta { background:#08783b; }
+    .print-only { display:none; }
     /* 列印只留快算結果與聯絡方式 */
     @media print {
       .tab-nav, .btn-submit, #evalForm, #resultBox, .line-cta { display: none !important; }
       body { padding: 0; }
+      #calcBox .form-group, #calcBox .section-title, #calcBox > .hint, .header > a { display:none !important; }
+      .print-only { display:block; }
       .card { box-shadow: none; border: 0; }
     }
   </style>
-  <meta name="description" content="中小企業老闆 1 分鐘自評：加班費、特休、資遣費快算，勞檢風險、政策貸款與政府補助方向，結果可直接傳給星耀顧問確認。">
+  <meta name="description" content="中小企業老闆 1 分鐘自評：加班費、特休、資遣費快算，勞檢風險、政策貸款與政府補助方向，如有需要可自行透過官方 LINE 諮詢。">
   <link rel="canonical" href="https://starbright-integrated.com/tools/quick-check/">
   <meta property="og:title" content="老闆快算與企業 1 分鐘自評 ｜ 星耀整合顧問">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:description" content="試算加班費、未休特休與新制資遣費，也可初步檢查常見勞資風險。">
+  <meta property="og:image" content="https://starbright-integrated.com/assets/coop-meeting.jpg">
+  <meta property="og:image:alt" content="勞資會議情境示意圖">
   <meta property="og:url" content="https://starbright-integrated.com/tools/quick-check/">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W87BYE0KYL"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-W87BYE0KYL',{cookie_domain:'starbright-integrated.com'});</script>
@@ -71,54 +86,58 @@
     <a href="/" style="display:inline-block;margin-bottom:10px;font-size:13px;color:var(--text-muted);text-decoration:none;">← 回星耀整合顧問官網</a><br>
     <span class="badge">星耀整合顧問・全方位企業體檢</span>
     <h1>中小企業「人、錢、補助」極速自評</h1>
-    <p class="subtitle">為 50 人以下企業主量身打造，1 分鐘掌握勞檢風險、貸款額度與政府補助</p>
+    <p class="subtitle">為 50 人以下企業主量身打造，快速初篩勞檢風險、貸款與政府補助方向</p>
   </div>
 
   <div class="card">
-    <div class="tab-nav">
-      <button class="tab-btn active" onclick="switchTab('all')">一站式全評</button>
-      <button class="tab-btn" onclick="switchTab('labor')">勞資合規防罰</button>
-      <button class="tab-btn" onclick="switchTab('loan')">青創/鳳凰貸款</button>
-      <button class="tab-btn" onclick="switchTab('subsidy')">政府補助速配</button>
-      <button class="tab-btn" onclick="switchTab('calc')">老闆快算</button>
+    <div class="tab-nav" role="group" aria-label="自評類別">
+      <button class="tab-btn active" type="button" data-tab="all" aria-pressed="true" onclick="switchTab('all')">一站式全評</button>
+      <button class="tab-btn" type="button" data-tab="labor" aria-pressed="false" onclick="switchTab('labor')">勞資合規自檢</button>
+      <button class="tab-btn" type="button" data-tab="loan" aria-pressed="false" onclick="switchTab('loan')">青創/鳳凰貸款</button>
+      <button class="tab-btn" type="button" data-tab="subsidy" aria-pressed="false" onclick="switchTab('subsidy')">政府補助速配</button>
+      <button class="tab-btn" type="button" data-tab="calc" aria-pressed="false" onclick="switchTab('calc')">老闆快算</button>
     </div>
 
     <!-- 2026-11-13 老闆快算：加班費、特休、資遣費（公式與談單入口「HR 合規專家」一致；已對全國法規資料庫） -->
     <div id="calcBox" style="display:none;">
       <div class="section-title">🧮 員工薪資三項快算</div>
-      <p class="hint" style="margin:-6px 0 14px;">不用填員工姓名，只填數字。結果是依勞基法與勞退新制的一般算法，實際以個案資料為準。</p>
+      <p class="hint" style="margin:-6px 0 14px;">不需填姓名。以一般全時月薪制、每日正常工時 8 小時與勞退新制為例；實際依個案及工資明細計算。</p>
       <div class="form-group">
-        <label for="qSalary">月薪（含每月固定發的津貼）</label>
-        <input type="number" id="qSalary" min="0" step="100" placeholder="例如 32000" oninput="quickCalc()">
+        <label for="qSalary">正常工時月工資（不含加班費；含屬於工資的津貼）</label>
+        <input type="number" id="qSalary" min="1" step="1" inputmode="numeric" placeholder="例如 32000" oninput="quickCalc()">
       </div>
       <div class="form-group">
         <label for="qStart">到職日</label>
         <input type="date" id="qStart" oninput="quickCalc()">
       </div>
       <div class="section-title" style="font-size:14px;">① 加班費（這個月）</div>
-      <div class="form-group" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+      <div class="form-group calc-grid">
         <div><label for="qOt12">平日加班：每天前 2 小時合計</label><input type="number" id="qOt12" min="0" step="0.5" value="0" oninput="quickCalc()"></div>
-        <div><label for="qOt34">平日加班：超過 2 小時的部分合計</label><input type="number" id="qOt34" min="0" step="0.5" value="0" oninput="quickCalc()"></div>
-        <div><label for="qRestDays">休息日上班幾天</label><input type="number" id="qRestDays" min="0" step="1" value="0" oninput="quickCalc()"></div>
-        <div><label for="qRestHours">休息日每天上班幾小時</label><input type="number" id="qRestHours" min="0" max="12" step="0.5" value="0" oninput="quickCalc()"></div>
+        <div><label for="qOt34">平日加班：每天第 3 至第 4 小時合計</label><input type="number" id="qOt34" min="0" step="0.5" value="0" oninput="quickCalc()"></div>
+      </div>
+      <div class="form-group">
+        <label for="qRestHours">休息日出勤時數（逐日輸入）</label>
+        <input type="text" id="qRestHours" placeholder="例：2、4.5、9" aria-describedby="restHint" oninput="quickCalc()">
+        <p class="hint" id="restHint">每個數字代表一天的實際工作小時，請用逗號分隔。大小日分開算，不要平均。</p>
       </div>
       <div class="section-title" style="font-size:14px;">② 特休未休要折發的錢</div>
       <div class="form-group">
-        <label for="qUnused">今年沒休完的特休天數</label>
+        <label for="qUnused">應折發的未休特休天數（年度終結或契約終止）</label>
         <input type="number" id="qUnused" min="0" step="0.5" value="0" oninput="quickCalc()">
       </div>
-      <div id="calcResult" class="result-box" style="display:block; margin-top:4px;">
+      <div id="calcResult" aria-live="polite" class="result-box" style="display:block; margin-top:4px;">
         <div class="hint">填入月薪與到職日後，這裡會即時算出結果。</div>
       </div>
-      <a id="calcLine" class="line-cta" href="https://line.me/R/ti/p/@907qijtp" target="_blank">💬 把試算結果傳給星耀顧問，幫我看有沒有算錯</a>
-      <button type="button" class="btn-submit" style="background:#475569;" onclick="window.print()">🖨️ 列印／存成 PDF</button>
+      <a id="calcLine" class="line-cta" href="https://line.me/R/ti/p/@907qijtp" target="_blank" rel="noopener noreferrer">💬 開啟官方 LINE 諮詢（不帶入試算資料）</a>
+      <button type="button" class="btn-submit" id="printCalc" style="background:#475569;" disabled onclick="window.print()">🖨️ 列印／存成 PDF</button>
+      <p class="print-only">星耀整合顧問｜官方 LINE：@907qijtp</p>
     </div>
 
     <form id="evalForm">
       <!-- 基本資訊 -->
       <div class="section-title">🏢 企業基本現況</div>
       <div class="form-group">
-        <label>公司設立年資</label>
+        <label for="companyAge">公司設立年資</label>
         <select id="companyAge">
           <option value="under1">未滿 1 年（籌備中/新創立）</option>
           <option value="1to5" selected>1 年以上 ~ 未滿 5 年</option>
@@ -127,12 +146,12 @@
       </div>
 
       <div class="form-group">
-        <label>目前員工人數（含正職、工讀、約聘）</label>
+        <label for="headcount">目前員工人數（含正職、工讀、約聘）</label>
         <select id="headcount">
           <option value="0">僅負責人（尚未請人）</option>
-          <option value="1to4" selected>1 ~ 4 人（免成立勞保投保單位，但須健保/就保/勞退）</option>
+          <option value="1to4" selected>1 ~ 4 人（請個別確認勞保、就保、職災保險、健保及勞退）</option>
           <option value="5to29">5 ~ 29 人（法定強制成立勞保投保單位）</option>
-          <option value="30plus">30 人以上（法定須制定工作規則送核備、性騷擾防治辦法）</option>
+          <option value="30plus">30 人以上（應訂工作規則報核，並依適用規定訂防治規範）</option>
         </select>
       </div>
 
@@ -141,20 +160,24 @@
         <div class="section-title">⚖️ 勞檢風險快速排查（請勾選現況）</div>
         <div class="checkbox-group">
           <label class="checkbox-item">
-            <input type="checkbox" id="c1" value="出勤未精準記錄到分鐘">
-            <span>員工出勤「未精準記錄到分鐘」（例：僅簽名打勾、無打卡鐘或數位紀錄）<br><small style="color:#DC2626;">勞基法第30條第5項，法定罰鍰 9 萬 ~ 45 萬</small></span>
+            <input type="checkbox" id="c1" value="出勤未逐日記錄到分鐘／拒絕提供副本">
+            <span>未逐日記錄實際出勤到分鐘（例如只簽名或打勾），或拒絕提供員工申請的副本<br><small>勞基法第 30 條第 6 項：法定罰鍰 2 萬至 100 萬元。可採能核實時間的紙本紀錄，不限打卡鐘。</small></span>
           </label>
           <label class="checkbox-item">
-            <input type="checkbox" id="c2" value="加班費直接折算固定獎金或未依法定倍數給付">
-            <span>加班費直接包在固定薪資內，或未依 1.34 / 1.67 倍計算發放<br><small style="color:#DC2626;">勞基法第24條，法定罰鍰 2 萬 ~ 100 萬</small></span>
+            <input type="checkbox" id="c5" value="未置備出勤紀錄／未保存五年">
+            <span>未置備出勤紀錄，或未保存五年<br><small>勞基法第 30 條第 5 項：法定罰鍰 9 萬至 45 萬元。</small></span>
           </label>
           <label class="checkbox-item">
-            <input type="checkbox" id="c3" value="兼職員工未提繳6%勞工退休金">
-            <span>兼職工讀生或試用期員工「未投保就保」或「未提繳 6% 勞退」<br><small style="color:#DC2626;">勞工退休金條例，法定裁罰並公布負責人姓名</small></span>
+            <input type="checkbox" id="c2" value="加班費不足或計算方式未核對">
+            <span>加班費未按實際出勤及法定標準給足，或固定加班津貼未核對差額<br><small>勞基法第 24 條：法定罰鍰 2 萬至 100 萬元；平日前 2 小時至少 4/3 倍、接續 2 小時至少 5/3 倍。</small></span>
           </label>
           <label class="checkbox-item">
-            <input type="checkbox" id="c4" value="未簽訂書面勞動契約">
-            <span>員工到職未簽訂「完整書面勞動契約」（缺乏試用期、職務調動、離職交接條款）</span>
+            <input type="checkbox" id="c3" value="未確認適用的就保／勞退提繳">
+            <span>兼職、工讀或試用期員工未確認就業保險或勞退提繳<br><small>就業保險與勞退屬不同制度；依個別身分及適用規定核對。</small></span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="c4" value="未以書面確認重要勞動條件">
+            <span>未以書面確認重要勞動條件（例如工時、工資、職務）<br><small>書面有助釐清約定；此項不是未簽即一律受罰。</small></span>
           </label>
         </div>
       </div>
@@ -163,23 +186,23 @@
       <div id="sec-loan" class="eval-sec" style="margin-top: 20px;">
         <div class="section-title">💰 資金週轉與低利貸款落點</div>
         <div class="form-group">
-          <label>負責人年齡與性別條件</label>
+          <label for="applicantProfile">想先了解的貸款方向</label>
           <select id="applicantProfile">
-            <option value="youth">18 ~ 45 歲（青年創業貸款核心資格）</option>
-            <option value="woman">成年至 65 歲女性／45～65 歲中高齡（微型創業鳳凰資格）</option>
-            <option value="other">一般企業主（一般政策性中小企業專案貸款）</option>
+            <option value="youth">想了解青年創業貸款</option>
+            <option value="woman">想了解微型創業鳳凰貸款</option>
+            <option value="other">想了解其他政策性中小企業貸款</option>
           </select>
         </div>
         <div class="form-group">
-          <label>預計週轉或擴大資金需求</label>
+          <label for="fundAmount">預計週轉或擴大資金需求</label>
           <select id="fundAmount">
-            <option value="100">100 萬以內（小額度，鳳凰貸款免保人）</option>
-            <option value="200" selected>100 ~ 200 萬（最常見週轉金與設備款）</option>
-            <option value="400">200 ~ 400 萬以上（需完整財務預測與事業計畫書）</option>
+            <option value="100">100 萬以內</option>
+            <option value="200" selected>超過 100 萬、200 萬以內</option>
+            <option value="400">超過 200 萬</option>
           </select>
         </div>
         <div class="form-group">
-          <label>負責人票信與信用卡聯徵紀錄</label>
+          <label for="creditStatus">負責人票信與信用卡聯徵紀錄</label>
           <select id="creditStatus">
             <option value="clean" selected>正常無瑕疵（信用卡正常繳清、無催收逾期）</option>
             <option value="slight">偶爾有幾天忘記繳或使用循環利息</option>
@@ -192,9 +215,9 @@
       <div id="sec-subsidy" class="eval-sec" style="margin-top: 20px;">
         <div class="section-title">🎁 政府免償還補助速配</div>
         <div class="form-group">
-          <label>目前最想爭取的政府資源</label>
+          <label for="subsidyGoal">目前最想爭取的政府資源</label>
           <select id="subsidyGoal">
-            <option value="hr">員工培訓免費講師補助（勞動部小型企業人力提升計畫，補助最高 100%）</option>
+            <option value="hr">員工培訓（勞動部小型企業人力提升計畫）</option>
             <option value="sbir">研發與產品服務創新補助（地方型／中央型 SBIR）</option>
             <option value="digital">商業數位轉型補助（服務業轉型、行銷系統導入）</option>
           </select>
@@ -205,32 +228,38 @@
     </form>
 
     <!-- 結果展現區塊 -->
-    <div id="resultBox" class="result-box">
+    <section id="resultBox" class="result-box" aria-labelledby="resultHeading" tabindex="-1">
       <div id="scoreBadge" class="score-badge">計算中...</div>
-      <h3 style="font-size:18px; margin-bottom:8px; color:var(--primary);">專屬健檢結果與下一步建議</h3>
+      <h2 id="resultHeading" style="font-size:18px; margin-bottom:8px; color:var(--primary);">初步檢核結果與下一步建議</h2>
       
       <div id="laborResult"></div>
       <div id="loanResult" style="margin-top:12px;"></div>
       <div id="subsidyResult" style="margin-top:12px;"></div>
 
-      <a id="lineLink" class="line-cta" href="https://line.me/R/ti/p/@907qijtp" target="_blank">
-        💬 點此私訊官方 LINE 領取完整避坑/送件指引
+      <a id="lineLink" class="line-cta" href="https://line.me/R/ti/p/@907qijtp" target="_blank" rel="noopener noreferrer">
+        💬 開啟官方 LINE 諮詢（不帶入自評資料）
       </a>
       <div style="font-size:11px; text-align:center; color:var(--text-muted); margin-top:8px;">
         官方 LINE：@907qijtp（星耀整合顧問顧問群在線解答）
       </div>
-    </div>
+    </section>
   </div>
 
   <div class="footer">
     星耀整合顧問（Starbright-Integrated）版權所有<br>
-    專注中小企業：人資勞資合規 ｜ 企業政策貸款 ｜ 政府補助申請<br><a href="/privacy/" style="color:inherit;">隱私權政策</a>　本頁不收集姓名或聯絡資料，試算只在你的瀏覽器裡計算。
+    專注中小企業：人資勞資合規 ｜ 企業政策貸款 ｜ 政府補助申請<br><a href="/website-privacy/" style="color:inherit;">官網資料使用說明</a>　本工具不要求姓名或聯絡資料；試算及自評輸入不會自動附加到 LINE 連結。網站流量分析請見官網資料使用說明。
   </div>
 
   <script>
+    let selectedTab = 'all';
     function switchTab(type) {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      event.target.classList.add('active');
+      selectedTab = type;
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        const active = b.dataset.tab === type;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-pressed', String(active));
+      });
+      document.getElementById('resultBox').style.display = 'none';
       const secLabor = document.getElementById('sec-labor');
       const secLoan = document.getElementById('sec-loan');
       const secSubsidy = document.getElementById('sec-subsidy');
@@ -259,122 +288,133 @@
     }
 
     // ===== 老闆快算（2026-11-13）=====
-    // 時薪＝月薪÷240；平日加班前 2 小時 ×4/3、之後 ×5/3；休息日前 2 小時另加 4/3、之後另加 5/3（加給部分）
+    // 時薪＝月薪÷240；平日加班前 2 小時 ×4/3、之後 ×5/3；休息日第 1–2 / 3–8 / 9–12 小時另加 4/3、5/3、8/3
     // 特休：滿半年 3、1 年 7、2 年 10、3 年 14、5 年 15，滿 10 年後每年加 1 天，最多 30 天；未休折發 1 天＝月薪÷30
     // 新制資遣費：每滿 1 年 0.5 個月平均工資，未滿 1 年按比例，最多 6 個月（此處以月薪近似平均工資）
-    function leaveDays(years) {
-      if (years < 0.5) return 0;
+    function addMonths(date, months) {
+      const next = new Date(date.getFullYear(), date.getMonth() + months, 1);
+      const days = new Date(next.getFullYear(), next.getMonth() + 1, 0).getDate();
+      next.setDate(Math.min(date.getDate(), days));
+      return next;
+    }
+    function leaveDays(start, today) {
+      if (today < addMonths(start, 6)) return 0;
+      let years = today.getFullYear() - start.getFullYear();
+      if (today < addMonths(start, years * 12)) years--;
       if (years < 1) return 3;
       if (years < 2) return 7;
       if (years < 3) return 10;
       if (years < 5) return 14;
       if (years < 10) return 15;
-      return Math.min(30, 15 + Math.floor(years) - 9);
+      return Math.min(30, 15 + years - 9);
     }
-    const money = n => 'NT$ ' + Math.round(n).toLocaleString();
+    const dollars = n => 'NT$ ' + (Math.ceil((n - 1e-9) * 100) / 100).toLocaleString('zh-TW', {maximumFractionDigits:2});
+    const restPay = (h, hourly) => (Math.min(2,h) * 4/3 + Math.min(6,Math.max(0,h-2)) * 5/3 + Math.max(0,h-8) * 8/3) * hourly;
     function quickCalc() {
-      const salary = Number(document.getElementById('qSalary').value) || 0;
-      const startVal = document.getElementById('qStart').value;
+      const val = id => document.getElementById(id).value;
+      const salary = Number(val('qSalary'));
+      const startVal = val('qStart');
       const box = document.getElementById('calcResult');
-      if (!salary || !startVal) { box.innerHTML = '<div class="hint">填入月薪與到職日後，這裡會即時算出結果。</div>'; return; }
+      const print = document.getElementById('printCalc');
+      const stop = msg => { box.textContent = msg; print.disabled = true; };
+      if (!startVal || !val('qSalary')) return stop('填入月工資與到職日後，這裡會即時算出結果。');
+      const now = new Date();
+      const today = new Date(now.getFullYear(),now.getMonth(),now.getDate());
       const start = new Date(startVal + 'T00:00:00');
-      const years = Math.max(0, (Date.now() - start) / (365.25 * 86400000));
+      const [ot12, ot34, unused] = ['qOt12','qOt34','qUnused'].map(id => Number(val(id)));
+      const restInput = val('qRestHours').trim();
+      const restParts = restInput ? restInput.split(/[,，、;；]+/).map(x => x.trim()) : [];
+      const rests = restParts.map(Number);
+      if (['qSalary','qOt12','qOt34','qUnused','qStart'].some(id => document.getElementById(id).validity.badInput) || !(salary > 0 && Number.isFinite(salary)) || !Number.isFinite(+start) || start > today ||
+        [ot12,ot34,unused].some(x => !Number.isFinite(x) || x < 0) ||
+        restParts.some((x,i) => !/^\d+(?:\.\d+)?$/.test(x) || rests[i] > 12 || rests[i] <= 0)) {
+        return stop('請確認月工資大於零、到職日不晚於今天；加班與未休天數不得為負數，休息日請逐日輸入大於 0 且不超過 12 的實際小時數。');
+      }
+      const years = (today - start) / (365.25 * 86400000);
       const hourly = salary / 240;
-      const ot12 = Number(document.getElementById('qOt12').value) || 0;
-      const ot34 = Number(document.getElementById('qOt34').value) || 0;
-      const restDays = Number(document.getElementById('qRestDays').value) || 0;
-      const restH = Math.min(12, Number(document.getElementById('qRestHours').value) || 0);
-      const weekdayOt = ot12 * hourly * 4 / 3 + ot34 * hourly * 5 / 3;
-      const restOt = restDays * (Math.min(2, restH) * hourly * 4 / 3 + Math.max(0, restH - 2) * hourly * 5 / 3);
-      const unused = Number(document.getElementById('qUnused').value) || 0;
+      const weekdayOt = (ot12 * 4/3 + ot34 * 5/3) * hourly;
+      const restOt = rests.reduce((sum,h) => sum + restPay(h,hourly), 0);
       const leavePay = unused * salary / 30;
       const severanceMonths = Math.min(6, years * 0.5);
       const severance = severanceMonths * salary;
-      const yearsText = years.toFixed(1);
+      const yearsText = years.toFixed(2);
+      print.disabled = false;
       box.innerHTML = `
-        <div class="opportunity-item"><strong>① 這個月加班費：${money(weekdayOt + restOt)}</strong><br>
-          時薪 ${money(hourly)}（月薪 ÷ 240）；平日 ${money(weekdayOt)}、休息日 ${money(restOt)}</div>
-        <div class="opportunity-item"><strong>② 特休：年資 ${yearsText} 年，今年應有 ${leaveDays(years)} 天</strong><br>
-          沒休完 ${unused} 天要折發 ${money(leavePay)}（1 天＝月薪 ÷ 30）</div>
-        <div class="opportunity-item"><strong>③ 如果現在資遣（勞退新制）：約 ${money(severance)}</strong><br>
-          年資 ${yearsText} 年 × 0.5 ＝ ${severanceMonths.toFixed(2)} 個月平均工資（最多 6 個月）；另有預告期間或預告工資，未計入</div>
-        <div class="hint">以上是一般算法的參考值，實際要看出勤紀錄、薪資結構（哪些算工資）、是否為勞退舊制年資等個案資料。</div>`;
-      const msg = `您好星耀顧問，我用了線上「老闆快算」：\n月薪 ${salary}、年資約 ${yearsText} 年\n加班費約 ${Math.round(weekdayOt + restOt)}、特休應有 ${leaveDays(years)} 天、資遣費約 ${Math.round(severance)}\n想請您幫我確認有沒有算錯。`;
-      document.getElementById('calcLine').href = 'https://line.me/R/ti/p/@907qijtp?text=' + encodeURIComponent(msg);
+        <div class="opportunity-item"><strong>① 這個月加班費：${dollars(weekdayOt + restOt)}</strong><br>
+          時薪 ${dollars(hourly)}（月薪 ÷ 240）；平日 ${dollars(weekdayOt)}、休息日 ${dollars(restOt)}</div>
+        <div class="opportunity-item"><strong>② 週年制特休：目前這一期應有 ${leaveDays(start,today)} 天</strong><br>
+          未休 ${unused} 天，估計 ${dollars(leavePay)}（假設未遞延，且輸入為年度終結或契約終止前最近一個月的正常工時工資）</div>
+        <div class="opportunity-item"><strong>③ 如果現在資遣（勞退新制）：約 ${dollars(severance)}</strong><br>
+          年資 ${yearsText} 年 × 0.5 ＝ ${severanceMonths.toFixed(2)} 個月平均工資（上限 6 個月）；以輸入月工資暫代平均工資，未含可能的預告工資</div>
+        <div class="hint">以上是一般算法的參考值，實際要看出勤紀錄、薪資結構、適用工時制度與是否為勞退舊制。<br><a href="https://calcr2.mol.gov.tw/Monthly" rel="noreferrer">勞動部加班費試算</a>・<a href="https://calcr2.mol.gov.tw/RestDays" rel="noreferrer">特休試算</a>。</div>`;
     }
 
     function calculateResult() {
-      const c1 = document.getElementById('c1').checked;
-      const c2 = document.getElementById('c2').checked;
-      const c3 = document.getElementById('c3').checked;
-      const c4 = document.getElementById('c4').checked;
-      const riskCount = (c1?1:0) + (c2?1:0) + (c3?1:0) + (c4?1:0);
-
+      const risks = ['c1','c5','c2','c3','c4'].map(id => document.getElementById(id)).filter(input => input.checked);
+      const riskCount = risks.length;
       const profile = document.getElementById('applicantProfile').value;
-      const fund = document.getElementById('fundAmount').value;
       const credit = document.getElementById('creditStatus').value;
       const subsidy = document.getElementById('subsidyGoal').value;
-      const age = document.getElementById('companyAge').value;
-      const headcount = document.getElementById('headcount').value;
+      const fund = document.getElementById('fundAmount').value;
 
       const resultBox = document.getElementById('resultBox');
       const badge = document.getElementById('scoreBadge');
       const laborRes = document.getElementById('laborResult');
       const loanRes = document.getElementById('loanResult');
       const subsidyRes = document.getElementById('subsidyResult');
-      const lineLink = document.getElementById('lineLink');
 
-      // 勞資合規診斷
-      let laborHtml = '<strong>⚖️ 勞資法規防護度：</strong>';
-      if(riskCount >= 2) {
-        badge.className = 'score-badge score-red';
-        badge.innerText = '⚠️ 警示：存在高額勞檢罰鍰地雷';
-        laborHtml += `<div class="risk-item">您勾選了 ${riskCount} 項常見勞基法違規風險！若遇勞工申訴或勞動檢查，法定裁罰累計恐達 <strong>9 萬 ~ 100 萬元</strong>。建議立即補齊「合法出勤分鐘紀錄」與「正規勞動契約」。</div>`;
-      } else if(riskCount === 1) {
-        badge.className = 'score-badge score-yellow';
-        badge.innerText = '🟡 注意：有局部制度缺口需補強';
-        laborHtml += `<div class="risk-item">有一項潛在違規風險需修補，建議在擴大徵才前先健全規章，避免後續爭議。</div>`;
+      // 勞資合規診斷：顯示勾選項目，不把不同義務的裁罰相加。
+      let laborHtml = '<strong>⚖️ 勞資初步檢核：</strong>';
+      badge.className = 'score-badge ' + (riskCount ? 'score-yellow' : 'score-green');
+      badge.innerText = riskCount ? '有項目待確認' : '未勾選本表風險';
+      if (riskCount) {
+        risks.forEach(input => { laborHtml += '<div class="risk-item">' + input.value + '</div>'; });
+        laborHtml += '<p class="hint">逐項核對法規與實際情況；法定罰鍰非本工具可合計預估。</p>';
       } else {
-        badge.className = 'score-badge score-green';
-        badge.innerText = '🟢 優良：基礎合規意識良好';
-        laborHtml += `<div class="opportunity-item">恭喜！目前基礎風險指標健康，若員工人數即將達到 30 人，應儘速著手申報工作規則。</div>`;
+        laborHtml += '<div class="opportunity-item">未勾選不等同合規。建議定期檢查出勤、加班、保險及勞動條件。</div>';
       }
 
       // 貸款落點
       let loanHtml = '<strong>💰 政策貸款落點分析：</strong>';
       if(credit === 'bad') {
-        loanHtml += `<div class="risk-item">⚠️ 負責人聯徵有瑕疵，直接向一般銀行送件不容易過件。建議先進行聯徵修復或考慮轉以微型鳳凰免保人輔導專案切入。</div>`;
+        loanHtml += `<div class="risk-item">⚠️ 負責人聯徵有瑕疵，直接向一般銀行送件宜先確認銀行與各方案的信用條件；免保人不代表不審信用。</div>`;
       } else {
-        if(profile === 'youth' && age !== 'over5') {
-          loanHtml += `<div class="opportunity-item">🎯 <strong>最佳落點：經濟部青年創業貸款</strong>。<br>負責人未滿 45 歲、事業設立未滿 5 年可評估；需先完成政府創業輔導課程，額度與文件依承貸銀行審核。`;
+        if(profile === 'youth') {
+          loanHtml += `<div class="opportunity-item">🎯 <strong>可先了解：經濟部青年創業貸款</strong>。<br>年齡、設立年限與課程等資格，以申請時的官方公告及承貸銀行審核為準。</div>`;
         } else if(profile === 'woman') {
-          loanHtml += `<div class="opportunity-item">🎯 <strong>最佳落點：勞動部微型創業鳳凰貸款</strong>。<br>專為女性與中高齡創業者打造，免保人、免擔保品，前 2 年利息由政府全額補貼。</div>`;
+          loanHtml += `<div class="opportunity-item">🎯 <strong>可先了解：勞動部微型創業鳳凰貸款</strong>。<br>提供符合資格的創業者評估；貸款條件、利息補貼與信用審查依申請時公告。</div>`;
         } else {
           loanHtml += `<div class="opportunity-item">🎯 <strong>建議方案：中小企業政策性專案貸款（依營運需求評估）</strong>。</div>`;
         }
       }
 
+      const fundLabel = {'100':'100 萬以內','200':'超過 100 萬、200 萬以內','400':'超過 200 萬'}[fund];
+      if (fundLabel) loanHtml += '<p class="hint">你填寫的資金需求：' + fundLabel + '。這不是估算核貸額度。</p>';
+
       // 補助速配
       let subsidyHtml = '<strong>🎁 推薦政府補助計畫：</strong>';
       if(subsidy === 'hr') {
-        subsidyHtml += `<div class="opportunity-item">💡 <strong>首選：勞動部「小型企業人力提升計畫（小人提）」</strong>。<br>50 人以下企業免自籌款，由政府 100% 補助外部專業顧問到店輔導培訓，訓練費用由政府負擔，額度依勞動力發展署分署核定（每年 12 月起受理下一年度）。</div>`;
+        subsidyHtml += `<div class="opportunity-item">💡 <strong>首選：勞動部「小型企業人力提升計畫（小人提）」</strong>。<br>依參加就業保險人數等資格初篩，輔導、訓練與費用以勞動力發展署分署當期核定為準。</div>`;
       } else if(subsidy === 'sbir') {
         subsidyHtml += `<div class="opportunity-item">💡 <strong>首選：經濟部 / 各縣市地方型 SBIR 創新研發補助</strong>。<br>地方型最高補助計畫經費一半、上限依各縣市公告；中央型額度更高，補助款不需償還。重點在於商業模式或技術創新亮點提煉。</div>`;
       } else {
         subsidyHtml += `<div class="opportunity-item">💡 <strong>首選：商業服務業節能/智慧數位轉型補助</strong>。<br>協助零售、餐飲與生活服務業導入數位工具與 AI 流程。</div>`;
       }
 
-      laborRes.innerHTML = laborHtml;
-      loanRes.innerHTML = loanHtml;
-      subsidyRes.innerHTML = subsidyHtml;
-
-      // 產生 LINE 點擊客製化文字
-      const customMsg = encodeURIComponent(`您好星耀顧問，我剛完成了線上綜合體檢：\n公司年資：${age}\n人數：${headcount}\n勞資風險項：${riskCount} 項\n想進一步了解【${profile === 'youth' ? '青創貸款' : (profile === 'woman' ? '微型鳳凰' : '政策貸款')}】與【${subsidy === 'hr' ? '小人提培訓補助' : 'SBIR補助'}】的送件細節，請協助診斷。`);
-      lineLink.href = `https://line.me/R/ti/p/@907qijtp?text=${customMsg}`;
+      laborRes.innerHTML = ['all','labor'].includes(selectedTab) ? laborHtml : '';
+      loanRes.innerHTML = ['all','loan'].includes(selectedTab) ? loanHtml : '';
+      subsidyRes.innerHTML = ['all','subsidy'].includes(selectedTab) ? subsidyHtml : '';
+      if (selectedTab === 'loan' || selectedTab === 'subsidy') {
+        badge.className = 'score-badge';
+        badge.innerText = '依目前輸入提供參考方向';
+      }
 
       resultBox.style.display = 'block';
-      resultBox.scrollIntoView({ behavior: 'smooth' });
+      if (typeof resultBox.focus === 'function') resultBox.focus({ preventScroll: true });
+      const reducedMotion = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      resultBox.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
     }
+    if (typeof location !== 'undefined' && location.hash === '#calc') switchTab('calc');
   </script>
 </body>
 </html>

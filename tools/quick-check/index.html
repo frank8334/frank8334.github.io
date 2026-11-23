@@ -30,6 +30,8 @@
     .section-title { font-size: 16px; font-weight: 700; color: var(--primary); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
     .form-group { margin-bottom: 16px; }
     label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #334155; }
+    .selected-detail { display:none; }
+    @media (max-width: 640px) { .selected-detail { display:block; margin-top:6px; font-size:14px; color:#334155; overflow-wrap:anywhere; } }
     .hint { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
     select, input[type="text"], input[type="number"] { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; transition: 0.2s; }
     select:focus, input:focus { border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
@@ -232,6 +234,7 @@
       <div id="scoreBadge" class="score-badge">計算中...</div>
       <h2 id="resultHeading" style="font-size:18px; margin-bottom:8px; color:var(--primary);">初步檢核結果與下一步建議</h2>
       
+      <div id="companyResult" class="opportunity-item"></div>
       <div id="laborResult"></div>
       <div id="loanResult" style="margin-top:12px;"></div>
       <div id="subsidyResult" style="margin-top:12px;"></div>
@@ -251,6 +254,15 @@
   </div>
 
   <script>
+    document.querySelectorAll('#evalForm select').forEach(select => {
+      const detail = document.createElement('p');
+      detail.className = 'selected-detail';
+      detail.setAttribute('aria-hidden', 'true');
+      select.insertAdjacentElement('afterend', detail);
+      const update = () => { detail.textContent = '已選：' + select.selectedOptions[0].textContent; };
+      select.addEventListener('change', update);
+      update();
+    });
     let selectedTab = 'all';
     function switchTab(type) {
       selectedTab = type;
@@ -350,6 +362,21 @@
     }
 
     function calculateResult() {
+      const age = document.getElementById('companyAge');
+      const headcount = document.getElementById('headcount');
+      const ageAdvice = {
+        under1: '可先整理籌備與設立日期，再核對各方案的申請時點。',
+        '1to5': '可準備設立日期與營運資料，核對各方案的年限條件。',
+        over5: '可先核對各方案是否有設立年限限制，再準備營運資料。'
+      };
+      const headcountAdvice = {
+        '0': '尚未聘僱員工；規劃聘僱時再逐項確認適用義務。',
+        '1to4': '請逐項確認員工的保險與勞退適用情況。',
+        '5to29': '請確認投保單位及員工保險、勞退的適用情況。',
+        '30plus': '請確認工作規則及職場防治規範等適用條件。'
+      };
+      const companyResult = document.getElementById('companyResult');
+      companyResult.textContent = '企業現況：' + age.selectedOptions[0].textContent + '；' + headcount.selectedOptions[0].textContent + '。' + ageAdvice[age.value] + headcountAdvice[headcount.value] + ' 實際條件仍以主管機關公告及個案為準。';
       const risks = ['c1','c5','c2','c3','c4'].map(id => document.getElementById(id)).filter(input => input.checked);
       const riskCount = risks.length;
       const profile = document.getElementById('applicantProfile').value;

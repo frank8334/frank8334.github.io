@@ -60,10 +60,19 @@
     @media (max-width:400px) { .calc-grid { grid-template-columns:minmax(0,1fr); } .tab-btn { min-width:30%; } }
     .line-cta { background:#08783b; }
     .print-only { display:none; }
-    /* 列印只留快算結果與聯絡方式 */
+    .report-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px dashed #CBD5E1; }
+    .sub-promo { margin-top: 16px; padding: 16px; border-radius: 12px; background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%); border: 1px solid #BFDBFE; }
+    .sub-promo-tag { display: inline-block; background: #1E3A8A; color: #FFFFFF; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin-bottom: 8px; }
+    .sub-promo h3 { font-size: 15px; color: var(--primary); margin: 0 0 6px; }
+    .sub-promo ul { margin: 8px 0 12px 18px; padding: 0; font-size: 13px; color: #334155; line-height: 1.6; }
+    .sub-promo-btn { display: block; text-align: center; background: #1E3A8A; color: #FFFFFF; padding: 11px 14px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px; }
+    /* 列印只留當前檢視之快算結果或專屬診斷報告 */
     @media print {
-      .tab-nav, .btn-submit, #evalForm, #resultBox, .line-cta { display: none !important; }
-      body { padding: 0; }
+      .tab-nav, .btn-submit, #evalForm, .line-cta, .sub-promo, .no-print { display: none !important; }
+      body:not(.print-report) #resultBox { display: none !important; }
+      body.print-report #calcBox { display: none !important; }
+      body.print-report #resultBox { display: block !important; border: 1px solid #CBD5E1; margin-top: 8px; }
+      body { padding: 0; background: #FFFFFF; }
       #calcBox .form-group, #calcBox .section-title, #calcBox > .hint, .header > a { display:none !important; }
       .print-only { display:block; }
       .card { box-shadow: none; border: 0; }
@@ -231,6 +240,7 @@
 
     <!-- 結果展現區塊 -->
     <section id="resultBox" class="result-box" aria-labelledby="resultHeading" tabindex="-1">
+      <div id="reportMeta" class="report-meta">星耀整合顧問｜企業體檢專屬報告</div>
       <div id="scoreBadge" class="score-badge">計算中...</div>
       <h2 id="resultHeading" style="font-size:18px; margin-bottom:8px; color:var(--primary);">初步檢核結果與下一步建議</h2>
       
@@ -239,11 +249,28 @@
       <div id="loanResult" style="margin-top:12px;"></div>
       <div id="subsidyResult" style="margin-top:12px;"></div>
 
+      <button type="button" class="btn-submit no-print" style="background:#334155; margin-top:14px;" onclick="printDiagnosticReport()">📄 匯出我的專屬 PDF 健檢報告</button>
+
       <a id="lineLink" class="line-cta" href="https://line.me/R/ti/p/@907qijtp" target="_blank" rel="noopener noreferrer">
         💬 開啟官方 LINE 諮詢（不帶入自評資料）
       </a>
       <div style="font-size:11px; text-align:center; color:var(--text-muted); margin-top:8px;">
         官方 LINE：@907qijtp（星耀整合顧問顧問群在線解答）
+      </div>
+
+      <!-- 訂閱制早鳥驗證入口 -->
+      <div class="sub-promo no-print">
+        <span class="sub-promo-tag">創始早鳥測試・限額 10 家</span>
+        <h3>🛡️ 星耀「勞資防雷＋表單更新」月費顧問包</h3>
+        <div style="font-size:13px; color:#475569;">不用花月薪 4 萬請專職 HR，用小額月費幫公司常態把關勞檢地雷：</div>
+        <ul>
+          <li><strong>每月法規雷達白話版</strong>：最新勞動法修法與勞檢重點一次看懂</li>
+          <li><strong>合規人資表單庫更新</strong>：契約、離職通報、特休與加班費表單隨時取用</li>
+          <li><strong>官方 LINE 輕量急件快問</strong>：遇到突發離職或員工爭議，隨時有顧問可問</li>
+        </ul>
+        <a class="sub-promo-btn" href="https://line.me/R/ti/p/@907qijtp" target="_blank" rel="noopener noreferrer">
+          👉 私訊官方 LINE「@907qijtp」輸入「防雷顧問」卡位早鳥
+        </a>
       </div>
     </section>
   </div>
@@ -436,10 +463,21 @@
         badge.innerText = '依目前輸入提供參考方向';
       }
 
+      const todayStr = new Date().toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' });
+      const metaEl = document.getElementById('reportMeta');
+      if (metaEl) {
+        metaEl.textContent = `星耀整合顧問｜企業體檢專屬報告（產生日期：${todayStr}｜官方 LINE：@907qijtp）`;
+      }
+
       resultBox.style.display = 'block';
       if (typeof resultBox.focus === 'function') resultBox.focus({ preventScroll: true });
       const reducedMotion = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
       resultBox.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
+    }
+    function printDiagnosticReport() {
+      document.body.classList.add('print-report');
+      window.print();
+      setTimeout(() => document.body.classList.remove('print-report'), 500);
     }
     if (typeof location !== 'undefined' && location.hash === '#calc') switchTab('calc');
   </script>
